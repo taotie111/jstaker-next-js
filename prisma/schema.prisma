@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model jstaker_test {
+  name String? @db.VarChar(255)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model error_information {
+  id                  Int     @id
+  type                Int?
+  errorFunction       String? @db.VarChar(255)
+  errorPageUrl        String? @db.VarChar(255)
+  errorFunctionParams String? @db.VarChar(255)
+  projectName         String? @db.VarChar(255)
+  uid                 String? @db.VarChar(255)
+  token               String? @db.VarChar(255)
+  message             String? @db.VarChar(255)
+
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model performancemonitoring {
+  startTime   DateTime? @db.DateTime(0)
+  eventName   String?   @db.VarChar(255)
+  endTime     DateTime? @db.DateTime(0)
+  projectName String?   @db.VarChar(255)
+  message     String?   @db.VarChar(255)
+
+  @@ignore
+}
