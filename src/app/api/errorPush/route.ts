@@ -1,15 +1,17 @@
 import { NextResponse,NextRequest } from "next/server";
 import {PrismaClient} from "@prisma/client"
+
 const prisma = new PrismaClient();
 export const GET = async(
     req: NextRequest,
-    params : any
+    {params} : any
 ) => {
-    console.log('req',req.nextUrl.searchParams);
+    const id =  <string> req.nextUrl.searchParams.get('id');
+    console.log('req',id);
     console.log('params', params);
     const createMany = await prisma.error_information.createMany({
         data:[
-            {...params}
+            {id: parseInt(id)}
         ]
     })
     const users = await prisma.error_information.findMany();
@@ -21,13 +23,16 @@ export const GET = async(
     })
 }
 
-export const POST = (
+export  const  POST = async (
     req: NextRequest,
     {params} : any
 ) => {
+    const formData = await req.formData();
+    console.log(formData);
     return NextResponse.json({
         success: true,
         errorMessage: '',
         data: {}
     })
 }
+
