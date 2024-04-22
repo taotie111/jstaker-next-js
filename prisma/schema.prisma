@@ -16,7 +16,7 @@ model jstaker_test {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model error_information {
-  id                  Int     @id
+  id                  Int     @id @default(autoincrement())
   type                Int?
   errorFunction       String? @db.VarChar(255)
   errorPageUrl        String? @db.VarChar(255)

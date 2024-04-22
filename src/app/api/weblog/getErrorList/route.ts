@@ -1,7 +1,21 @@
 import { NextResponse,NextRequest } from "next/server";
 import {PrismaClient} from "@prisma/client"
 
+import { useEffect } from 'react';
+
+// import { usePrisma } from "../../../backend/services/usePrisma.ts"
 const prisma = new PrismaClient();
+// function usePrisma() {
+//     useEffect(() => {
+//       prisma.$connect();
+//       return () => {
+//         prisma.$disconnect();
+//       };
+//     }, []);
+  
+//     return prisma;
+//   }
+// const prisma1 = usePrisma();
 
 export const OPTIONS = (req: NextRequest, res: NextResponse) => {
     // res.status(200).send(); // 响应 OPTIONS 请求
@@ -17,14 +31,17 @@ export const OPTIONS = (req: NextRequest, res: NextResponse) => {
 
     return response;
 };
-export const GET = (
+export const GET = async (
     req: NextRequest,
     {params} : any
 ) => {
+    await prisma.$connect();
+    const users = await prisma.error_information.findMany();
+    await prisma.$disconnect();
     return NextResponse.json({
         success: true,
-        errorMessage:'该接口使用post请求',
-        data:{}
+        errorMessage:'',
+        data:{users}
     })
 }
 export interface error_information_data {
@@ -43,21 +60,7 @@ export  const  POST = async (
     req: NextRequest,
     {params} : any
 ) => {
-    // const requestBody = await req.text();
-    // console.log(requestBody);
-    const json = await req.json();
-    // 判断id 是否为number
 
-    const data: error_information_data = {
-        ...json
-      };
-    const createMany = await prisma.error_information.createMany({
-        data:[
-            data
-        ]
-    })
-    
-    console.log(createMany);
     return NextResponse.json({
         success: true,
         errorMessage: '',

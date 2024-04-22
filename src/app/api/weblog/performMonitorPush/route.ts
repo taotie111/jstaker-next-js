@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 
 export const OPTIONS = (req: NextRequest, res: NextResponse) => {
-    console.log(123)
     // res.status(200).send(); // 响应 OPTIONS 请求
     const response = NextResponse.json({
         success: true,
