@@ -6,7 +6,7 @@ import {deleteParamsIsNotNull} from "../../../utils/apiUtils";
 const prisma = new PrismaClient();
 
 export const OPTIONS = (req: NextRequest, res: NextResponse) => {
-    // res.status(200).send(); // 响应 OPTIONS 请求
+    // 响应 OPTIONS 请求
     const response = NextResponse.json({
         success: true,
         errorMessage: '',
@@ -19,21 +19,26 @@ export const OPTIONS = (req: NextRequest, res: NextResponse) => {
 
     return response;
 };
+
 export const GET = async (
     req: NextRequest
 ) => {
     const id =  req.nextUrl.searchParams.get('id');
+    const eventName = req.nextUrl.searchParams.get('eventName');
     const type = req.nextUrl.searchParams.get('type');
-    const errorPageUrl = req.nextUrl.searchParams.get('errorPageUrl');
-    const errorFunctionParams = req.nextUrl.searchParams.get('errorFunctionParams');
+    const duration = req.nextUrl.searchParams.get('duration');
     const projectName = req.nextUrl.searchParams.get('projectName');
+    const startTime = req.nextUrl.searchParams.get('startTime');
+    const endTime = req.nextUrl.searchParams.get('endTime');
 
     const params = deleteParamsIsNotNull({
         id: id,
         type: type,
-        errorPageUrl: errorPageUrl,
-        errorFunctionParams: errorFunctionParams,
-        projectName: projectName
+        eventName: eventName,
+        duration: duration,
+        projectName: projectName,
+        startTime:startTime,
+        endTime:endTime
     });
     console.log(req.nextUrl.searchParams)
     if (params.id){
@@ -42,20 +47,34 @@ export const GET = async (
     if (params.type){
         params.type = Number(params.type);
     }
+    if(params.startTime){
+        params.startTime = new Date(params.startTime);
+    }
+    if(params.endTime){
+        params.endTime = new Date(params.endTime);
+    }
     await prisma.$connect();
-    const data = await prisma.error_information.findMany({
+    const data = await prisma.performance_monitoring.findMany({
         where: {
             id: params.id,
             type: params.type,
-            errorPageUrl:{
-                contains: params.errorPageUrl
-            },
-            errorFunctionParams:{
-                contains: params.errorFunctionParams
-            },
             projectName:{
                 contains: params.projectName
-            }
+            },
+            AND: [
+                {
+                  startTime: {
+                    // 大于或等于起始时间
+                    gte: params.startTime
+                  }
+                },
+                {
+                  endTime: {
+                    // 小于结束时间
+                    lte: params.endTime
+                  }
+                }
+              ]
           },
     });
     await prisma.$disconnect();
@@ -65,18 +84,6 @@ export const GET = async (
         data:{data}
     })
 }
-export interface error_information_data {
-    id: number;
-    errorFunction: string;
-    errorPageUrl: string;
-    errorFunctionParams: string;
-    projectName: string;
-    uid?: string;
-    type: number;
-    message: string;
-    [property: string]: any;
-}
-
 export  const  POST = async (
     req: NextRequest,
     {params} : any
