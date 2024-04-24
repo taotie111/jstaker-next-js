@@ -27,26 +27,29 @@ export const GET = (
         data:{}
     })
 }
-export interface error_information_data {
-    id: number;
-    errorFunction: string;
-    errorPageUrl: string;
-    errorFunctionParams: string;
-    projectName: string;
-    uid?: string;
-    type: number;
-    message: string;
-    [property: string]: any;
+export interface user {
+    username: string,
+    password: string,
+    email?: string,
+    phone?: string,
+    role?: string,
+    status?: string,
+    create_time?: string,
+    update_time?: string,
+    last_login_time?: string,
+    last_login_ip?: string,
+    last_login_location?: string,
+    last_login_device?: string,
+    last_login_browser?: string,
+    last_login_os?: string,
 }
 
 export  const  POST = async (
     req: NextRequest,
     {params} : any
 ) => {
-    // const requestBody = await req.text();
-    // console.log(requestBody);
     const json = await req.json();
-    // 判断id 是否为number
+    // 检查用户名是否已经存在
 
     const data: error_information_data = {
         ...json
