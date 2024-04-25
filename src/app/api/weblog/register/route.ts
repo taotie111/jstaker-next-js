@@ -54,28 +54,15 @@ export  const  POST = async (
     const data: user = {
         ...json
       };
-    const userModule = await prisma.user.findUnique({
-        where:{
-            username: data.username
-        }
-            
+    const createMany = await prisma.user.createMany({
+        data:[
+            data
+        ]
     })
-    if (userModule && userModule.password === data.password){
-        console.log(userModule,'userModule')
-        return NextResponse.json({
-            status:200,
-            success: true,
-            message: '登录成功',
-            data: {}
-        })
-    } else {
-        return NextResponse.json({
-            status:200,
-            success: false,
-            message: '账号或者密码错误',
-            data: {}
-        })
-    }
-
+    return NextResponse.json({
+        success: true,
+        errorMessage: '创建数据成功',
+        data: {}
+    })
 }
 

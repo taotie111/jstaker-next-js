@@ -41,12 +41,18 @@ model performance_monitoring {
 }
 
 model user {
-  id        Int     @id @default(autoincrement())
-  name      String? @db.VarChar(255)
-  username  String? @db.VarChar(255)
-  email     String? @db.VarChar(255)
-  role      String? @db.VarChar(255)
-  password  String? @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                  Int?
+  name                String?   @db.VarChar(255)
+  username            String    @id @db.VarChar(255)
+  email               String?   @db.VarChar(255)
+  password            String?   @db.VarChar(255)
+  createdAt           DateTime? @default(now())
+  updatedAt           DateTime? @updatedAt
+  role                String?   @db.VarChar(255)
+  last_login_browser  String?   @db.VarChar(255)
+  last_login_device   String?   @db.VarChar(255)
+  last_login_ip       String?   @db.VarChar(255)
+  last_login_location String?   @db.VarChar(255)
+  last_login_os       String?   @db.VarChar(255)
+  last_login_time     DateTime? @db.DateTime(0)
 }
