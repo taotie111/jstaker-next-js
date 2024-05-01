@@ -1,13 +1,17 @@
 'use client'
 import { Button, Checkbox, Form, Input,Card } from 'antd';
-
+import { useState } from 'react'
 const onFinish = (values) => {
   console.log('Success:', values);
 };
 const onFinishFailed = (errorInfo) => {
   console.log('Failed:', errorInfo);
 };
-import { useState } from 'react'
+
+const login = () => {
+
+}
+
 export default function Login(){
     return (
         <Card
@@ -15,6 +19,7 @@ export default function Login(){
           width: 368,
           height: 423,
         }}
+        className='mr-10'
       >
         <div className='pt-10 '>
             <div className='flex flex-row loginTitle'>
@@ -24,7 +29,7 @@ export default function Login(){
             </div>
             <Input placeholder="请输入账号"></Input>
             <Input placeholder="请输入密码"></Input>
-            <Button>登录</Button>
+            <Button onClick={login}>登录</Button>
         </div>
       </Card>
       );
