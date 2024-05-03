@@ -10,3 +10,9 @@
     height: 100vh;
     background-color: antiquewhite;
 }
+
+.login{
+    position: absolute;
+    top: 30%;
+    right: 10%;
+}

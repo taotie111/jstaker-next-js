@@ -1,0 +1,33 @@
+.loginTitle{
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+    display: flex;
+    color: rgba(119, 140, 162, 1);
+    margin-bottom: 48px;
+}
+.loginActiveText{
+    color: rgba(226, 200, 124, 1);
+  
+}
+
+.segmentation{
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.Input{
+    height: 45px;
+    margin-top: 16px;
+    background: rgba(245, 247, 253, 1);
+}
+
+.loginButton{
+    width: 100%;
+    background: rgba(226, 200, 124, 1);
+    height: 45px;
+    margin-top: 32px;
+    color: rgba(255, 255, 255, 1);
+    font-size: 18px;
+}
