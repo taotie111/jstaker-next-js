@@ -1,3 +1,6 @@
 {
-  "/login/page": "app/login/page.js"
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/weblog/login/route": "app/api/weblog/login/route.js",
+  "/login/page": "app/login/page.js",
+  "/jstakerDashBoard/page": "app/jstakerDashBoard/page.js"
 }

@@ -1,0 +1,18 @@
+.loginTitle {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: left;
+}
+
+.loginPage{
+    width: 100vw;
+    height: 100vh;
+    background-color: antiquewhite;
+}
+
+.login{
+    position: absolute;
+    top: 30%;
+    right: 10%;
+}
