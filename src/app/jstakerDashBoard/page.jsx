@@ -1,9 +1,13 @@
 import 'server-only'
 import styles from './styles.module.css'
-export default function Login(){
+export default function DashBoard(){
     return (
-        <div className={styles.login}>
-            大屏
+        <div className={styles.dashboard} >
+            <div className={styles.header}></div>
+            <div className={styles.container}>
+                <div className={styles.left}></div>
+                <div className={styles.coreContainer}></div>
+            </div>
         </div>
     )
 }

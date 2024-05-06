@@ -1,18 +1,18 @@
-.loginTitle {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 30px;
-    text-align: left;
+.dashboard{
+    height: 100%;
 }
-
-.loginPage{
-    width: 100vw;
-    height: 100vh;
-    background-color: antiquewhite;
+.header{
+    height: 64px;
+    width: 100%;
+    background-color: aquamarine;
 }
-
-.login{
-    position: absolute;
-    top: 30%;
-    right: 10%;
+.container{
+    height: calc(100vh - 64px);
+    width: 100%;
+    background-color: bisque;
+    .left{
+        height: 100%;
+        width: 200px;
+        background-color: brown;
+    }
 }

@@ -4,7 +4,7 @@ export default function DashboardLayout({
     children,
   }) {
     return (
-      <section className={styles.loginPage}>
+      <section className={styles.dashboard}>
         {children}
       </section>
     )
