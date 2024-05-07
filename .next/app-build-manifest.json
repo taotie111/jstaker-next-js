@@ -1,5 +1,16 @@
 {
   "pages": {
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/css-src_app_globals_css-node_modules_next_font_google_target_css.css",
+      "static/chunks/app/layout.js"
+    ],
     "/jstakerDashBoard/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -10,12 +21,6 @@
       "static/chunks/main-app.js",
       "static/css/css-src_app_jstakerDashBoard_styles_module_css.css",
       "static/chunks/app/jstakerDashBoard/layout.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/css-src_app_globals_css-node_modules_next_font_google_target_css.css",
-      "static/chunks/app/layout.js"
     ]
   }
 }

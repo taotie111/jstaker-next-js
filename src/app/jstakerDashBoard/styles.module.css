@@ -4,15 +4,34 @@
 .header{
     height: 64px;
     width: 100%;
-    background-color: aquamarine;
+    background-color: #fefbfb;
+    display: flex;
+    .icon{
+        height: 64px;
+        width: 64px;
+    }
+    .title{
+        height: 64px;
+        font-size: 24px;
+        line-height: 64px;
+        color: #ffbf75;
+    }
 }
 .container{
     height: calc(100vh - 64px);
     width: 100%;
     background-color: bisque;
+    display: flex;
     .left{
         height: 100%;
         width: 200px;
-        background-color: brown;
+        background-color: white;
     }
+    .coreContainer{
+        height: 100%;
+        flex: 1;
+        background-color: bisque;
+        width: calc(100% - 200px);
+    }
+    
 }
