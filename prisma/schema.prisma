@@ -41,7 +41,7 @@ model performance_monitoring {
 }
 
 model user {
-  id                  Int?
+  id                  Int?      
   name                String?   @db.VarChar(255)
   username            String    @id @db.VarChar(255)
   email               String?   @db.VarChar(255)
@@ -55,4 +55,24 @@ model user {
   last_login_location String?   @db.VarChar(255)
   last_login_os       String?   @db.VarChar(255)
   last_login_time     DateTime? @db.DateTime(0)
+}
+
+model web {
+  id                  Int       @id @default(autoincrement())
+  name                String?   @db.VarChar(255)
+  token               String?   @db.VarChar(255)
+  createdAt           DateTime? @default(now())
+  updatedAt           DateTime? @updatedAt
+  roleLevel           String?   @db.VarChar(255)
+  message              String?   @db.VarChar(255)
+}
+
+model uv {
+  id                  Int     @id @default(autoincrement())
+  clickName           String? @db.VarChar(255)
+  uid                 String? @db.VarChar(255)
+  token               String? @db.VarChar(255)
+  message             String?   @db.VarChar(255)
+  ip                  String? @db.VarChar(255)
+  date                DateTime @db.DateTime(0)
 }

@@ -1,5 +1,15 @@
 {
-  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/page": "app/page.js",
+  "/api/errorPush/route": "app/api/errorPush/route.js",
+  "/api/weblog/push/route": "app/api/weblog/push/route.js",
+  "/api/weblog/getPerformMonitorList/route": "app/api/weblog/getPerformMonitorList/route.js",
+  "/api/weblog/uv/getUVdataList/route": "app/api/weblog/uv/getUVdataList/route.js",
+  "/api/weblog/register/route": "app/api/weblog/register/route.js",
+  "/api/weblog/performMonitorPush/route": "app/api/weblog/performMonitorPush/route.js",
+  "/api/weblog/getErrorList/route": "app/api/weblog/getErrorList/route.js",
+  "/api/weblog/login/route": "app/api/weblog/login/route.js",
+  "/login/page": "app/login/page.js",
   "/jstakerDashBoard/page": "app/jstakerDashBoard/page.js"
 }

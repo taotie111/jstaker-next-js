@@ -1,26 +1,59 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
+    "/_not-found/page": [
+      "static/chunks/webpack-2cd21c3312da0a69.js",
+      "static/chunks/fd9d1056-2e5c50ee2db91161.js",
+      "static/chunks/23-a8df646486934a31.js",
+      "static/chunks/main-app-fc79c6865d858949.js",
+      "static/chunks/app/_not-found/page-9d49c5d77045f30b.js"
     ],
     "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/css-src_app_globals_css-node_modules_next_font_google_target_css.css",
-      "static/chunks/app/layout.js"
+      "static/chunks/webpack-2cd21c3312da0a69.js",
+      "static/chunks/fd9d1056-2e5c50ee2db91161.js",
+      "static/chunks/23-a8df646486934a31.js",
+      "static/chunks/main-app-fc79c6865d858949.js",
+      "static/css/16f827dc9e3c6517.css",
+      "static/chunks/app/layout-6dfdac4aa28af405.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-2cd21c3312da0a69.js",
+      "static/chunks/fd9d1056-2e5c50ee2db91161.js",
+      "static/chunks/23-a8df646486934a31.js",
+      "static/chunks/main-app-fc79c6865d858949.js",
+      "static/chunks/173-ab89ec1739e5912e.js",
+      "static/chunks/app/page-5e5e9d723644aab0.js"
+    ],
+    "/login/page": [
+      "static/chunks/webpack-2cd21c3312da0a69.js",
+      "static/chunks/fd9d1056-2e5c50ee2db91161.js",
+      "static/chunks/23-a8df646486934a31.js",
+      "static/chunks/main-app-fc79c6865d858949.js",
+      "static/css/cda81ff26502f14b.css",
+      "static/chunks/281-0bebf45c01fe2609.js",
+      "static/chunks/app/login/page-ea9856da7f5448da.js"
+    ],
+    "/login/layout": [
+      "static/chunks/webpack-2cd21c3312da0a69.js",
+      "static/chunks/fd9d1056-2e5c50ee2db91161.js",
+      "static/chunks/23-a8df646486934a31.js",
+      "static/chunks/main-app-fc79c6865d858949.js",
+      "static/css/c598c985749cfd5d.css",
+      "static/chunks/app/login/layout-87bdafe4fa0870dc.js"
     ],
     "/jstakerDashBoard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/jstakerDashBoard/page.js"
+      "static/chunks/webpack-2cd21c3312da0a69.js",
+      "static/chunks/fd9d1056-2e5c50ee2db91161.js",
+      "static/chunks/23-a8df646486934a31.js",
+      "static/chunks/main-app-fc79c6865d858949.js",
+      "static/chunks/app/jstakerDashBoard/page-7b7ad2ebbad8e6d3.js"
     ],
     "/jstakerDashBoard/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/css-src_app_jstakerDashBoard_styles_module_css.css",
-      "static/chunks/app/jstakerDashBoard/layout.js"
+      "static/chunks/webpack-2cd21c3312da0a69.js",
+      "static/chunks/fd9d1056-2e5c50ee2db91161.js",
+      "static/chunks/23-a8df646486934a31.js",
+      "static/chunks/main-app-fc79c6865d858949.js",
+      "static/css/2bafef4c0f27966f.css",
+      "static/chunks/app/jstakerDashBoard/layout-1f7e9e07adc11b49.js"
     ]
   }
 }

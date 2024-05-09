@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 
 
 
-export default function Login() {
+export default function NavigationTap() {
   const router = useRouter()
 
 
