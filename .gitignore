@@ -16,7 +16,7 @@
 .next/
 # production
 /build
-
+.env
 # misc
 .DS_Store
 /prisma/*.pem
