@@ -1,6 +1,6 @@
-import { NextResponse,NextRequest } from "next/server";
-import {PrismaClient} from "@prisma/client"
-import {deleteParamsIsNotNull} from "../../../../utils/apiUtils"; 
+import { NextResponse, NextRequest } from "next/server";
+import { PrismaClient } from "@prisma/client"
+import { deleteParamsIsNotNull } from "../../../../utils/apiUtils";
 
 
 const prisma = new PrismaClient();
@@ -22,39 +22,66 @@ export const OPTIONS = (req: NextRequest, res: NextResponse) => {
 export const GET = async (
     req: NextRequest
 ) => {
-    const id =  req.nextUrl.searchParams.get('id');
+    const id = req.nextUrl.searchParams.get('id');
 
     const params = deleteParamsIsNotNull({
         id: id,
     });
     console.log(req.nextUrl.searchParams)
-    if (params.id){
+    if (params.id) {
         params.id = Number(params.id);
     }
     await prisma.$connect();
     const data = await prisma.web.findMany({
         where: {
-          },
-    }); 
+        },
+    });
     await prisma.$disconnect();
     return NextResponse.json({
         success: true,
-        errorMessage:'',
-        data:data
+        errorMessage: '',
+        data: data
     })
 }
 export interface uv_data {
     id: number;
 }
 
-export  const  POST = async (
+export const POST = async (
     req: NextRequest,
-    {params} : any
+    { params }: any
 ) => {
-    return NextResponse.json({
-        success: true,
-        errorMessage: '',
-        data: {}
-    })
+    try {
+        const json = await req.json();
+
+        // 使用update方法更新用户名称
+        const user = await prisma.web.update({
+            where: {
+                id: json.id, // 指定要更新记录的id
+            },
+            data: {
+                name: json.name, // 指定要更新的数据
+                token: json.token,
+                remark: json.remark,
+                roleLevel: json.roleLevel,
+                address: json.address
+            },
+        });
+        console.log('Updated user:', user);
+        return user;
+    } catch (error) {
+        console.error("Error updating user:", error);
+        throw error;
+    } finally {
+        // 断开数据库连接
+        await prisma.$disconnect();
+        return NextResponse.json({
+            success: true,
+            errorMessage: '',
+            data: {}
+        })
+
+    }
+
 }
 

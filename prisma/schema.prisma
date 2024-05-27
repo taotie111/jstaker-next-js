@@ -58,14 +58,16 @@ model user {
 }
 
 model web {
-  id                  Int?      @id @default(autoincrement())
+  id                  Int       @id @default(autoincrement())
   name                String?   @db.VarChar(255)
   token               String?   @db.VarChar(255)
   remark 							String?   @db.VarChar(255)
   createdAt           DateTime? @default(now())
   updatedAt           DateTime? @updatedAt
   roleLevel           String?   @db.VarChar(255)
+  address             String?   @db.VarChar(255)
 }
+
 model uv {
   id                  Int     @id @default(autoincrement())
   clickName           String? @db.VarChar(255)

@@ -40,20 +40,24 @@ export const GET = async (
 export interface web_data {
     name: string;
     token: string;
-    remake: string;
-    roleLevel: string
+    remark: string;
+    roleLevel: string;
+    address: string;
 }
 
 export  const  POST = async (
     req: NextRequest,
     {params} : any
 ) => {
+    console.log(123,'json');
     const json = await req.json();
+    console.log(json,'json');
     const data: web_data = {
         name: json.name,
         token: json.token,
-        remake: json.remake,
-        roleLevel: json.roleLevel
+        remark: json.remark,
+        roleLevel: json.roleLevel,
+        address: json.roleLevel
     }
     await prisma.$connect();
     const createMany = await prisma.web.createMany({
@@ -67,10 +71,6 @@ export  const  POST = async (
         errorMessage:'',
         data:createMany
     })
-    return NextResponse.json({
-        success: true,
-        errorMessage: '',
-        data: {}
-    })
+
 }
 
