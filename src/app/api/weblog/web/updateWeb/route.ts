@@ -51,11 +51,12 @@ export const POST = async (
     req: NextRequest,
     { params }: any
 ) => {
+    let web = null;
     try {
         const json = await req.json();
 
         // 使用update方法更新用户名称
-        const user = await prisma.web.update({
+         web = await prisma.web.update({
             where: {
                 id: json.id, // 指定要更新记录的id
             },
@@ -67,18 +68,22 @@ export const POST = async (
                 address: json.address
             },
         });
-        console.log('Updated user:', user);
-        return user;
+        console.log('Updated user:', web);
     } catch (error) {
         console.error("Error updating user:", error);
-        throw error;
+        return NextResponse.json({
+            success: false,
+            errorMessage: '',
+            data: error
+        })
+   
     } finally {
         // 断开数据库连接
         await prisma.$disconnect();
         return NextResponse.json({
             success: true,
             errorMessage: '',
-            data: {}
+            data: web
         })
 
     }
