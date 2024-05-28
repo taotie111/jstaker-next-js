@@ -25,6 +25,8 @@ model error_information {
   uid                 String? @db.VarChar(255)
   token               String? @db.VarChar(255)
   message             String? @db.VarChar(255)
+  createdAt           DateTime? @default(now())
+  updatedAt           DateTime? @updatedAt
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
