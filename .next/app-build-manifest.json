@@ -1,16 +1,5 @@
 {
   "pages": {
-    "/jstakerDashBoard/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/jstakerDashBoard/page.js"
-    ],
-    "/jstakerDashBoard/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/css-src_app_jstakerDashBoard_styles_module_css.css",
-      "static/chunks/app/jstakerDashBoard/layout.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -28,6 +17,11 @@
       "static/chunks/main-app.js",
       "static/css/css-src_app_login_styles_module_css.css",
       "static/chunks/app/login/layout.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
