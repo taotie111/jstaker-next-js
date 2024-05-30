@@ -58,7 +58,7 @@ export default function Login() {
                 name="password"
                 placeholder="Enter password"
                 required
-                minLength={6}
+                minLength={3}
               />
             </div>
           </div>

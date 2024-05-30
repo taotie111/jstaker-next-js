@@ -79,3 +79,13 @@ model uv {
   ip                  String? @db.VarChar(255)
   date                DateTime @db.DateTime(0)
 }
+
+model loadScript {
+    id                  Int     @id @default(autoincrement())
+    scriptName          String? @db.VarChar(255)
+    uid                 String? @db.VarChar(255)
+    token               String? @db.VarChar(255)
+    message             String? @db.VarChar(255)
+    ip                  String? @db.VarChar(255)
+    date                DateTime @db.DateTime(0)
+}
