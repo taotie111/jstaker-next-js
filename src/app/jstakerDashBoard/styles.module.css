@@ -22,11 +22,11 @@
     width: 100%;
     background-color: bisque;
     display: flex;
-    .left{
+    /* .left{
         height: 100%;
         width: 200px;
         background-color: white;
-    }
+    } */
     .coreContainer{
         height: 100%;
         flex: 1;
