@@ -1,4 +1,4 @@
 {
-  "/login/page": "app/login/page.js",
-  "/jstakerDashBoard/page": "app/jstakerDashBoard/page.js"
+  "/jstakerDashBoard/page": "app/jstakerDashBoard/page.js",
+  "/login/page": "app/login/page.js"
 }

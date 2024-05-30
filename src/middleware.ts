@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth';
-import { authConfig } from '../auth.config.ts';
+import { authConfig } from './auth.config.ts';
  
 export default NextAuth(authConfig).auth;
  

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { signIn } from '../../../auth';
+import { signIn } from '../../auth';
 import { AuthError } from 'next-auth';
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
