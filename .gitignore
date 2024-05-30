@@ -12,13 +12,14 @@
 # next.js
 /.next/
 /out/
-
+/.next
+.next/
 # production
 /build
-
+.env
 # misc
 .DS_Store
-*.pem
+/prisma/*.pem
 
 # debug
 npm-debug.log*
@@ -34,3 +35,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+

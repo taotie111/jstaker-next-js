@@ -27,6 +27,17 @@ export const GET = async (
     const errorPageUrl = req.nextUrl.searchParams.get('errorPageUrl');
     const errorFunctionParams = req.nextUrl.searchParams.get('errorFunctionParams');
     const projectName = req.nextUrl.searchParams.get('projectName');
+    const startDate = req.nextUrl.searchParams.get('startDate');
+    const endDate = req.nextUrl.searchParams.get('endDate');
+    
+    // 构建时间范围查询条件
+    const timeCondition:any = {};
+    if (startDate) {
+    timeCondition.gte = new Date(startDate); // 大于等于startDate
+    }
+    if (endDate) {
+    timeCondition.lte = new Date(endDate); // 小于等于endDate
+    }
 
     const params = deleteParamsIsNotNull({
         id: id,
@@ -47,6 +58,7 @@ export const GET = async (
         where: {
             id: params.id,
             type: params.type,
+            createdAt: timeCondition,
             errorPageUrl:{
                 contains: params.errorPageUrl
             },
