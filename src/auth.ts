@@ -30,7 +30,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               }
                   
           })
-          console.log(userModule,'userModule')
           const passwordsMatch = (password === userModule.password)
     
           if (passwordsMatch){
@@ -50,21 +49,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           message: '账号或者密码错误',
           data: {}
       })
-        // //test demo
-   
-        console.log({credentials});
-
-        //tip:测试验证
-        if (credentials.username=='666') {
-          console.log("登录成功");
-          return {
-            username: "5555",
-          };
-        }
-
-
-        console.log("账号或者密码错误!!!!");
-        return null;
       },
     }),
   ],

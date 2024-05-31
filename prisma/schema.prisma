@@ -8,23 +8,16 @@ datasource db {
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model jstaker_test {
-  name String? @db.VarChar(255)
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model error_information {
-  id                  Int     @id @default(autoincrement())
+  id                  Int       @id @default(autoincrement())
   type                Int?
-  errorFunction       String? @db.VarChar(255)
-  errorPageUrl        String? @db.VarChar(255)
-  errorFunctionParams String? @db.VarChar(255)
-  projectName         String? @db.VarChar(255)
-  uid                 String? @db.VarChar(255)
-  token               String? @db.VarChar(255)
-  message             String? @db.VarChar(255)
+  errorFunction       String?   @db.VarChar(255)
+  errorPageUrl        String?   @db.VarChar(255)
+  errorFunctionParams String?   @db.VarChar(255)
+  projectName         String?   @db.VarChar(255)
+  uid                 String?   @db.VarChar(255)
+  token               String?   @db.VarChar(255)
+  message             String?   @db.VarChar(255)
   createdAt           DateTime? @default(now())
   updatedAt           DateTime? @updatedAt
 }
@@ -42,50 +35,115 @@ model performance_monitoring {
   uid         String?   @db.VarChar(255)
 }
 
-model user {
-  id                  Int?      
-  name                String?   @db.VarChar(255)
-  username            String    @id @db.VarChar(255)
-  email               String?   @db.VarChar(255)
-  password            String?   @db.VarChar(255)
-  createdAt           DateTime? @default(now())
-  updatedAt           DateTime? @updatedAt
-  role                String?   @db.VarChar(255)
-  last_login_browser  String?   @db.VarChar(255)
-  last_login_device   String?   @db.VarChar(255)
-  last_login_ip       String?   @db.VarChar(255)
-  last_login_location String?   @db.VarChar(255)
-  last_login_os       String?   @db.VarChar(255)
-  last_login_time     DateTime? @db.DateTime(0)
+model User {
+  id                  String          @id @default(cuid())
+  username            String?         @unique
+  email               String?         @unique
+  password            String?         @db.VarChar(255)
+  createdAt           DateTime?       @default(now())
+  updatedAt           DateTime?       @updatedAt
+  role                String?         @db.VarChar(255)
+  last_login_browser  String?         @db.VarChar(255)
+  last_login_device   String?         @db.VarChar(255)
+  last_login_ip       String?         @db.VarChar(255)
+  last_login_location String?         @db.VarChar(255)
+  last_login_os       String?         @db.VarChar(255)
+  last_login_time     DateTime?       @db.DateTime(0)
+  emailVerified       DateTime?
+  image               String?
+  Session             Session[]
+  Account             Account?
+  // Optional for WebAuthn support
+  Authenticator       Authenticator[]
 }
 
 model web {
-  id                  Int       @id @default(autoincrement())
-  name                String?   @db.VarChar(255)
-  token               String?   @db.VarChar(255)
-  remark 							String?   @db.VarChar(255)
-  createdAt           DateTime? @default(now())
-  updatedAt           DateTime? @updatedAt
-  roleLevel           String?   @db.VarChar(255)
-  address             String?   @db.VarChar(255)
+  id        Int       @id @default(autoincrement())
+  name      String?   @db.VarChar(255)
+  token     String?   @db.VarChar(255)
+  remark    String?   @db.VarChar(255)
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  roleLevel String?   @db.VarChar(255)
+  address   String?   @db.VarChar(255)
 }
 
 model uv {
-  id                  Int     @id @default(autoincrement())
-  clickName           String? @db.VarChar(255)
-  uid                 String? @db.VarChar(255)
-  token               String? @db.VarChar(255)
-  message             String?   @db.VarChar(255)
-  ip                  String? @db.VarChar(255)
-  date                DateTime @db.DateTime(0)
+  id        Int      @id @default(autoincrement())
+  clickName String?  @db.VarChar(255)
+  uid       String?  @db.VarChar(255)
+  token     String?  @db.VarChar(255)
+  message   String?  @db.VarChar(255)
+  ip        String?  @db.VarChar(255)
+  date      DateTime @db.DateTime(0)
 }
 
 model loadScript {
-    id                  Int     @id @default(autoincrement())
-    scriptName          String? @db.VarChar(255)
-    uid                 String? @db.VarChar(255)
-    token               String? @db.VarChar(255)
-    message             String? @db.VarChar(255)
-    ip                  String? @db.VarChar(255)
-    date                DateTime @db.DateTime(0)
+  id         Int      @id @default(autoincrement())
+  scriptName String?  @db.VarChar(255)
+  uid        String?  @db.VarChar(255)
+  token      String?  @db.VarChar(255)
+  message    String?  @db.VarChar(255)
+  ip         String?  @db.VarChar(255)
+  date       DateTime @db.DateTime(0)
+}
+
+model Account {
+  id                       String  @id @default(cuid())
+  userId                   String  @unique
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? @db.Text
+  access_token             String? @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+  user                     User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
 }
