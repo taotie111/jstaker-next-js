@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import { DoubleRightOutlined } from "@ant-design/icons";
 import { Radio, Select } from "antd";

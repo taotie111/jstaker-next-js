@@ -1,5 +1,6 @@
 import styles from './styles.module.css'
 
+import HeaderBar from './layout/HeaderBar/HeaderBar.jsx'
 export default function DashboardLayout({
     children,
   }) {
@@ -7,8 +8,8 @@ export default function DashboardLayout({
       <section className={styles.dashboard}>
             <div className={styles.dashboard} >
             <div className={styles.header}>
-              <img src='/jstakerIcon.png' className={styles.icon}></img>
-              <div className={styles.title}> 数据监控中心</div>
+              <HeaderBar></HeaderBar>
+  
               
             </div>
             <div className={styles.container}>
