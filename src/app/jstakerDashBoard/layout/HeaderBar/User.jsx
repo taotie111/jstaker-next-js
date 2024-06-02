@@ -3,38 +3,30 @@ import React from "react";
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import styles from './styles.module.css';
+import { signOut } from "next-auth/react"
+function SignOut() {
+    return <button onClick={() => signOut()}>退出</button>
+ }
 function User() {
+    const onClick = ({ key }) => {
+        console.log(key,'key')
+        switch(key){
+            case 0: ;
+        }
+      };
     const items = [
         {
-            label: (
-                <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                    1st menu item
-                </a>
-            ),
+            label: (<SignOut>退出</SignOut>) ,
             key: '0',
         },
-        {
-            label: (
-                <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-                    2nd menu item
-                </a>
-            ),
-            key: '1',
-        },
-        {
-            type: 'divider',
-        },
-        {
-            label: '3rd menu item（disabled）',
-            key: '3',
-            disabled: true,
-        },
+
     ];
     return (
         <div className={styles.user}>
             <Dropdown
                 menu={{
                     items,
+                    onClick
                 }}
             >
                 <a onClick={(e) => e.preventDefault()}>

@@ -16,8 +16,11 @@
         color: #ffbf75;
     }
 
-    .user{
+    .right{
+        display: flex;
+        align-self: center;
+        margin-left: auto;
         color: #ffbf75;
-        float: right;
+        cursor: pointer;
     }
 }
