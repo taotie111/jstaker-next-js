@@ -3,13 +3,20 @@ import React, { useState } from "react";
 import { DoubleRightOutlined } from "@ant-design/icons";
 import { Checkbox } from "antd";
 //监控站点
-function MonitorSite() {
+function MonitorSite(props) {
+  console.log(props,'props')
   //checkedList存放的是value值数组
   const [checkedList, setCheckedList] = useState([]);
-  const monitorOptions = [
-    { label: "城市生命线海塘专项", value: 0 },
-    { label: "鳌江", value: 1 },
-  ];
+
+  // 获取父组件中的 webListData 信息
+  const webListData = []
+  props.webListData.map(item => {
+    webListData.push({
+      label: item.name,
+      value: item.id
+    })
+  })
+  const monitorOptions = webListData; 
   const checkAll = monitorOptions.length === checkedList.length;
   const indeterminate =
     checkedList.length > 0 && checkedList.length < monitorOptions.length;

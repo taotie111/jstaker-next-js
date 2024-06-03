@@ -16,7 +16,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const parsedCredentials = z
           .object({ username: z.string().min(4), password: z.string().min(3) })
           .safeParse(credentials);
-        console.log({ parsedCredentials });
 
         //TODO 数据库获取用户账号密码验证
         if (parsedCredentials.success) {
