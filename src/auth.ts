@@ -23,7 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const { username,password } = parsedCredentials.data;
 
           // 检查用户名是否已经存在
-          const userModule = await prisma.user.findUnique({
+          const userModule = await prisma.User.findUnique({
               where:{
                   username: username
               }

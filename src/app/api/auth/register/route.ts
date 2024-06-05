@@ -56,7 +56,7 @@ export  const  POST = async (
     const data: user = {
         ...json
       };
-    const userModule = await prisma.user.findUnique({
+    const userModule = await prisma.User.findUnique({
         where:{
             username: data.username
         }
