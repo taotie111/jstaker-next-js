@@ -2,11 +2,14 @@
 import React, { useState } from "react";
 import { DoubleRightOutlined } from "@ant-design/icons";
 import { Checkbox } from "antd";
+import { atom, useAtom } from "jotai"
+import {checkWebListAtom} from "@/app/store/webListData/state.js"
 //监控站点
+// const checkWebListAtom = atom([])
 function MonitorSite(props) {
   console.log(props,'props')
   //checkedList存放的是value值数组
-  const [checkedList, setCheckedList] = useState([]);
+  const [checkedList, setCheckedList] = useAtom(checkWebListAtom);
 
   // 获取父组件中的 webListData 信息
   const webListData = []
@@ -24,6 +27,7 @@ function MonitorSite(props) {
     setCheckedList(
       e.target.checked ? monitorOptions.map((item) => item.value) : []
     );
+
   };
   const onChange = (list) => {
     setCheckedList(list);
