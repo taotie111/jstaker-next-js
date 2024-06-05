@@ -1,43 +1,52 @@
-import NextAuth , { CredentialsSignin } from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { authConfig } from "./auth.config";
-class InvalidLoginError extends CredentialsSignin {
-  code = "账号或密码错误"
-}
+import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
+
+const prisma = new PrismaClient();
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
       async authorize(credentials) {
         //验证参数合法性
-        // const parsedCredentials = z
-        //   .object({ username: z.string().min(6), password: z.string().min(6) })
-        //   .safeParse(credentials);
-        // console.log({ parsedCredentials });
+        const parsedCredentials = z
+          .object({ username: z.string().min(4), password: z.string().min(3) })
+          .safeParse(credentials);
+        console.log({ parsedCredentials });
 
         //TODO 数据库获取用户账号密码验证
-        // if (parsedCredentials.success) {
-        //   const { username } = parsedCredentials.data;
-        // //   const user = await getUser(email);
-        // //   if (!user) return null;
-        // //   const passwordsMatch = await bcrypt.compare(password, user.password);
-        // //   if (passwordsMatch) return user;
-        // //test demo
-        console.log({credentials});
+        if (parsedCredentials.success) {
+          console.log(parsedCredentials.data);
+          const { username, password } = parsedCredentials.data;
 
-        //tip:测试验证
-        if (credentials.username=='666') {
-          console.log("登录成功");
-          return {
-            username: "5555",
-          };
+          // 检查用户名是否已经存在
+          const userModule = await prisma.user.findUnique({
+            where: {
+              username: username,
+            },
+          });
+          const passwordsMatch = password === userModule?.password;
+
+          if (passwordsMatch) {
+            return {
+              name: userModule?.username,
+              id: userModule?.id,
+            };
+          }
+          //   const user = await getUser(email);
+          //   if (!user) return null;
+          //   const passwordsMatch = await bcrypt.compare(password, user.password);
+          //   if (passwordsMatch) return user;
         }
-     
-
-        console.log("账号或者密码错误!!!!");
-        // return null;
-        throw new InvalidLoginError()
+        return NextResponse.json({
+          status: 200,
+          success: false,
+          message: "账号或者密码错误",
+          data: {},
+        });
       },
     }),
   ],
@@ -54,7 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   //     if(token){
   //       session.username = token.username;
   //       session.password = token.password;
-     
+
   //     }
   //     return session;
   //   },

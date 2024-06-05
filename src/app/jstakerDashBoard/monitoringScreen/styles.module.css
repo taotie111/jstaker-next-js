@@ -1,23 +1,22 @@
 .dashboard{
     height: 100%;
 }
+
 .container{
     height: calc(100vh - 64px);
     width: 100%;
     background-color: bisque;
     display: flex;
-    .left{
+    /* .left{
         height: 100%;
-        /* width: 200px;
-         */
-         flex: 1;
-        background-color: #fefbfb;
-    }
+        width: 200px;
+        background-color: white;
+    } */
     .coreContainer{
         height: 100%;
-        flex: 4;
+        flex: 1;
         background-color: bisque;
-        /* width: calc(100% - 200px); */
+        width: calc(100% - 200px);
     }
     
 }

@@ -1,0 +1,26 @@
+.header{
+    height: 64px;
+    width: 100%;
+    background-color: #fefbfb;
+    display: flex;
+
+    .icon{
+        height: 64px;
+        width: 64px;
+    }
+
+    .title{
+        height: 64px;
+        font-size: 24px;
+        line-height: 64px;
+        color: #ffbf75;
+    }
+
+    .right{
+        display: flex;
+        align-self: center;
+        margin-left: auto;
+        color: #ffbf75;
+        cursor: pointer;
+    }
+}
