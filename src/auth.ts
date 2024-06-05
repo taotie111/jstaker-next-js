@@ -1,7 +1,10 @@
-import NextAuth from "next-auth";
+import NextAuth , { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { authConfig } from "./auth.config";
+class InvalidLoginError extends CredentialsSignin {
+  code = "账号或密码错误"
+}
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
@@ -30,11 +33,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             username: "5555",
           };
         }
-
+     
 
         console.log("账号或者密码错误!!!!");
-        return null;
+        // return null;
+        throw new InvalidLoginError()
       },
     }),
   ],
+  // callbacks: {
+  //   async jwt({token, user}) {
+  //     if(user){
+  //       token.username = user.username;
+  //       token.password = user.password;
+  //       console.log({token});
+  //     }
+  //     return token;
+  //   },
+  //   async session({session, token}) {
+  //     if(token){
+  //       session.username = token.username;
+  //       session.password = token.password;
+     
+  //     }
+  //     return session;
+  //   },
+
+  // }
 });

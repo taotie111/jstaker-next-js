@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { DoubleRightOutlined } from "@ant-design/icons";
 import { Radio, Select } from "antd";
@@ -62,14 +63,14 @@ function InspectionTime() {
   return (
     <div className="mb-3">
       <div className="text-base leading-9">
-        <DoubleRightOutlined className="mr-1" style={{ color: "blue" }} />
+        <DoubleRightOutlined className="mr-1 text-blue-600"  />
         自动巡检时间
       </div>
       <div className="text-sm leading-9 ml-2 mb-1">
         每日
         <Radio.Group
           size="small"
-          className="space-x-2 ml-2 text-xs"
+          className="space-x-1 ml-2 "
           options={timePointOptions}
           onChange={onChange1}
           value={value1}
