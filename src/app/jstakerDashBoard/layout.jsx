@@ -1,7 +1,7 @@
 import styles from './styles.module.css'
 
-import HeaderBar from './layout/HeaderBar/HeaderBar.jsx'
-import SiderBar from './layout/SiderBar/siderbar.jsx'
+import HeaderBar from './_components/HeaderBar/HeaderBar.jsx'
+import SiderBar from './_components/SiderBar/siderbar.jsx'
 
 export default function DashboardLayout({
     children

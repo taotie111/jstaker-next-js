@@ -35,36 +35,14 @@ model performance_monitoring {
   uid         String?   @db.VarChar(255)
 }
 
-model User {
-  id                  String          @id @default(cuid())
-  username            String?         @unique
-  email               String?         @unique
-  password            String?         @db.VarChar(255)
-  createdAt           DateTime?       @default(now())
-  updatedAt           DateTime?       @updatedAt
-  role                String?         @db.VarChar(255)
-  last_login_browser  String?         @db.VarChar(255)
-  last_login_device   String?         @db.VarChar(255)
-  last_login_ip       String?         @db.VarChar(255)
-  last_login_location String?         @db.VarChar(255)
-  last_login_os       String?         @db.VarChar(255)
-  last_login_time     DateTime?       @db.DateTime(0)
-  emailVerified       DateTime?
-  image               String?
-  Session             Session[]
-  Account             Account?
-  // Optional for WebAuthn support
-  Authenticator       Authenticator[]
-}
-
 model web {
   id        Int       @id @default(autoincrement())
   name      String?   @db.VarChar(255)
   token     String?   @db.VarChar(255)
-  remark    String?   @db.VarChar(255)
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
   roleLevel String?   @db.VarChar(255)
+  remark    String?   @db.VarChar(255)
   address   String?   @db.VarChar(255)
 }
 
@@ -78,7 +56,43 @@ model uv {
   date      DateTime @db.DateTime(0)
 }
 
-model loadScript {
+model account {
+  id                       String   @id
+  userId                   String   @unique(map: "Account_userId_key")
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?  @db.Text
+  access_token             String?  @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?  @db.Text
+  session_state            String?
+  refresh_token_expires_in Int?
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime
+  user                     User     @relation(fields: [userId], references: [id], map: "Account_userId_fkey")
+
+  @@unique([provider, providerAccountId], map: "Account_provider_providerAccountId_key")
+  @@index([userId], map: "Account_userId_idx")
+}
+
+model authenticator {
+  credentialID         String  @unique(map: "Authenticator_credentialID_key")
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Authenticator_userId_fkey")
+
+  @@id([userId, credentialID])
+}
+
+model loadscript {
   id         Int      @id @default(autoincrement())
   scriptName String?  @db.VarChar(255)
   uid        String?  @db.VarChar(255)
@@ -88,62 +102,43 @@ model loadScript {
   date       DateTime @db.DateTime(0)
 }
 
-model Account {
-  id                       String  @id @default(cuid())
-  userId                   String  @unique
-  type                     String
-  provider                 String
-  providerAccountId        String
-  refresh_token            String? @db.Text
-  access_token             String? @db.Text
-  expires_at               Int?
-  token_type               String?
-  scope                    String?
-  id_token                 String? @db.Text
-  session_state            String?
-  refresh_token_expires_in Int?
-  user                     User?   @relation(fields: [userId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([provider, providerAccountId])
-  @@index([userId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
+model session {
+  id           String   @id
+  sessionToken String   @unique(map: "Session_sessionToken_key")
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  user         User     @relation(fields: [userId], references: [id], map: "Session_userId_fkey")
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([userId])
+  @@index([userId], map: "Session_userId_idx")
 }
 
-model VerificationToken {
+model User {
+  id                  String          @id
+  username            String?         @unique(map: "User_username_key")
+  email               String?         @unique(map: "User_email_key")
+  password            String?         @db.VarChar(255)
+  createdAt           DateTime?       @default(now())
+  updatedAt           DateTime?
+  role                String?         @db.VarChar(255)
+  last_login_browser  String?         @db.VarChar(255)
+  last_login_device   String?         @db.VarChar(255)
+  last_login_ip       String?         @db.VarChar(255)
+  last_login_location String?         @db.VarChar(255)
+  last_login_os       String?         @db.VarChar(255)
+  last_login_time     DateTime?       @db.DateTime(0)
+  emailVerified       DateTime?
+  image               String?
+  account             account?
+  authenticator       authenticator[]
+  session             session[]
+}
+
+model verificationtoken {
   identifier String
   token      String
   expires    DateTime
 
-  @@unique([identifier, token])
-}
-
-// Optional for WebAuthn support
-model Authenticator {
-  credentialID         String  @unique
-  userId               String
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@id([userId, credentialID])
+  @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
 }
