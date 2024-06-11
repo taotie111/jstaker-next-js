@@ -4,13 +4,15 @@ import { DoubleRightOutlined } from "@ant-design/icons";
 import { Checkbox } from "antd";
 import { atom, useAtom } from "jotai"
 import {checkWebListAtom} from "@/app/store/webListData/state.js"
+import { useRouter } from 'next/navigation'
 //监控站点
 // const checkWebListAtom = atom([])
 function MonitorSite(props) {
   console.log(props,'props')
   //checkedList存放的是value值数组
   const [checkedList, setCheckedList] = useAtom(checkWebListAtom);
-
+  const base = "/jstakerDashBoard/monitoringScreen/"
+  const route = useRouter()
   // 获取父组件中的 webListData 信息
   const webListData = []
   props.webListData.map(item => {
@@ -27,10 +29,28 @@ function MonitorSite(props) {
     setCheckedList(
       e.target.checked ? monitorOptions.map((item) => item.value) : []
     );
-
+    let href = base;
+    if (monitorOptions.length == 0){
+      route.push(href + "/0")
+    }
+    href = href + monitorOptions[0].value
+    for(let i=1; i < monitorOptions.length; i++){
+      href = href + "-"+ monitorOptions[i].value
+    }
+    route.push(href)
   };
   const onChange = (list) => {
     setCheckedList(list);
+    let href = base;
+    if (list.length == 0){
+      route.push(href + "/0")
+    }
+    href = href + list[0]
+    for(let i=1; i < list.length; i++){
+      href = href + "-"+ list[i]
+    }
+    route.push(href)
+    console.log(list);
   };
   return (
     <div className="mb-3">
