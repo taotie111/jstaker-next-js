@@ -17,6 +17,7 @@
     "@mui/material": "^5.15.16",
     "@prisma/client": "^5.12.1",
     "antd": "^5.16.4",
+    "clsx": "^2.1.1",
     "cors": "^2.8.5",
     "next": "^14.0.2",
     "next-auth": "^5.0.0-beta.18",

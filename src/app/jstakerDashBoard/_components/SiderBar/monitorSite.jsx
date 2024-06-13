@@ -31,7 +31,7 @@ function MonitorSite(props) {
   return (
     <div className="mb-3">
       <div className="text-[14px] leading-9">
-        <DoubleRightOutlined className="mr-1 text-blue-600"  />
+        <DoubleRightOutlined className="mr-1 !text-[#ffbf75]"  />
         监控站点
       </div>
       <Checkbox

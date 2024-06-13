@@ -63,14 +63,14 @@ function InspectionTime() {
   return (
     <div className="mb-3">
       <div className="text-base leading-9">
-        <DoubleRightOutlined className="mr-1 text-blue-600"  />
+        <DoubleRightOutlined className="mr-1 !text-[#ffbf75]"  />
         自动巡检时间
       </div>
       <div className="text-sm leading-9 ml-2 mb-1">
-        每日
+         <span className="mr-1">每日</span>
         <Radio.Group
           size="small"
-          className="space-x-1 ml-2 "
+          className="space-x-1 "
           options={timePointOptions}
           onChange={onChange1}
           value={value1}
@@ -78,7 +78,8 @@ function InspectionTime() {
         />
       </div>
       <div className="text-sm leading-9 ml-2 ">
-        间隔
+        
+        <span className="mr-1">间隔</span>
         <Select
           defaultValue="0"
           className="mx-2"
@@ -88,7 +89,8 @@ function InspectionTime() {
         小时
       </div>
        <div className="text-sm leading-9 ml-2 ">
-        自动预报模式
+        
+        <span className="mr-1">自动预报模式</span>
         <Radio.Group
           size="small"
           className=" ml-2"

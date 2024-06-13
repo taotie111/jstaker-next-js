@@ -12,7 +12,7 @@ async function siderbar(props) {
   }
   webListData = await getWebListData()
   return (
-    <div className="w-65  py-2  px-4 bg-[#fefbfb]">
+    <div className="w-65  py-2  pl-4 bg-white">
       <BgManagement />
       <MonitorSite webListData={webListData}/>
       <InspectionTime />

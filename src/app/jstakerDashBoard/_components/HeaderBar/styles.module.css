@@ -1,26 +1,32 @@
-.header{
+.header {
+  height: 64px;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+
+  .icon {
     height: 64px;
-    width: 100%;
-    background-color: #fefbfb;
+    width: 64px;
+  }
+
+  .title {
+    height: 64px;
+    font-size: 24px;
+    line-height: 64px;
+    color: #ffbf75;
+  }
+  .center {
+    line-height: 64px;
+    font-size: 14px;
+    color: #ffbf75;
+    margin-left: 50px;
+  }
+  .right {
     display: flex;
-
-    .icon{
-        height: 64px;
-        width: 64px;
-    }
-
-    .title{
-        height: 64px;
-        font-size: 24px;
-        line-height: 64px;
-        color: #ffbf75;
-    }
-
-    .right{
-        display: flex;
-        align-self: center;
-        margin-left: auto;
-        color: #ffbf75;
-        cursor: pointer;
-    }
+    align-self: center;
+    margin-left: auto;
+    margin-right: 20px;
+    color: #ffbf75;
+    cursor: pointer;
+  }
 }

@@ -28,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               }
                   
           })
-          const passwordsMatch = (password === userModule.password)
+          const passwordsMatch = (password === userModule?.password)
     
           if (passwordsMatch){
               return {
@@ -52,24 +52,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async jwt({token, user}) {
-      // console.log({token, user})
-      // if(user){
-      //   token.username = user.username;
-      //   token.password = user.password;
-      //   console.log({token});
-      // }
-      return token;
-    },
-    async session({session, token}) {
-      // if(token){
-      //   session.username = token.username;
-      //   session.password = token.password;
+  // callbacks: {
+  //   async jwt({token, user}) {
+  //     // console.log({token, user})
+  //     // if(user){
+  //     //   token.username = user.username;
+  //     //   token.password = user.password;
+  //     //   console.log({token});
+  //     // }
+  //     return token;
+  //   },
+  //   async session({session, token}) {
+  //     // if(token){
+  //     //   session.username = token.username;
+  //     //   session.password = token.password;
 
-      // }
-      return session;
-    },
+  //     // }
+  //     return session;
+  //   },
 
-  }
+  // }
 });
