@@ -18,6 +18,7 @@ model error_information {
   uid                 String?   @db.VarChar(255)
   token               String?   @db.VarChar(255)
   message             String?   @db.VarChar(255)
+  ip                  String?   @db.VarChar(255)
   createdAt           DateTime? @default(now())
   updatedAt           DateTime? @updatedAt
 }

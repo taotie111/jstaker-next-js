@@ -1,0 +1,15 @@
+.TitleLine{
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 16px;
+    height: 68px;
+    background-color: #FFFFFF;
+    font-size: 18px;
+    line-height: 42px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 15px 13px;
+    .title{
+        margin-right: 40px;
+    }
+}

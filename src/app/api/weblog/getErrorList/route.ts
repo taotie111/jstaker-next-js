@@ -29,7 +29,7 @@ export const GET = async (
     const projectName = req.nextUrl.searchParams.get('projectName');
     const startDate = req.nextUrl.searchParams.get('startDate');
     const endDate = req.nextUrl.searchParams.get('endDate');
-    
+    const ip = req.nextUrl.searchParams.get('ip');
     // 构建时间范围查询条件
     const timeCondition:any = {};
     if (startDate) {
@@ -59,6 +59,7 @@ export const GET = async (
             id: params.id,
             type: params.type,
             createdAt: timeCondition,
+            ip: ip,
             errorPageUrl:{
                 contains: params.errorPageUrl
             },
