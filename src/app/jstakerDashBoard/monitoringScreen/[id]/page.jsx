@@ -30,7 +30,9 @@ export default async function MonitoringScreen(params){
 
                     </div>
                 </div>
-                <div></div>
+                <div className={styles.dataList}>
+                    
+                </div>
                 <div></div>
             </div>
         </div>

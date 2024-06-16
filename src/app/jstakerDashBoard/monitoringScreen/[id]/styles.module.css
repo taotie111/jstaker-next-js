@@ -1,5 +1,4 @@
 .dashboard{
-    height: 100%;
 }
 
 .container{
@@ -22,7 +21,7 @@
 }
 
 .left {
-    height: 100%;
+
 }
 
 .errorDetail{
@@ -44,4 +43,13 @@
         width: calc(20% - 12px);
         background: #ffffff;
     }
+
+}
+.dataList{
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 16px;
+    border-radius: 10px;
+    height: calc(100vh - 730px); 
+    background-color: #ffffff;      
 }
