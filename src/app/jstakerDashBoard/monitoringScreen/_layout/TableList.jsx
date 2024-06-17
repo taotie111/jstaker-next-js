@@ -1,6 +1,6 @@
 "use client"
 import styles from './styles.module.css'
-import { Button,Table } from 'antd';
+import { Button, Table } from 'antd';
 import { getWebErrorList } from "@/app/apiRequest/web"
 import { useEffect, useState } from 'react';
 
@@ -10,11 +10,23 @@ export default function TableList(params) {
     console.log(params, 'params');
     const { Column } = Table;
     const [errorList, setErrorList] = useState(params.errorList);
-    const actionRender = () =>{
+    const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenHeight(window.innerHeight);
+            console.log(window.innerHeight)
+        };
+        handleResize()
+        window.addEventListener('resize', handleResize);
+        return () => {
+            
+        };
+    }, []);
+    const actionRender = () => {
         return (
             <div size="middle">
-                <Button>上报</Button>
-                <Button>已删除</Button>
+                <Button>处理</Button>
             </div>
         )
     }
@@ -24,16 +36,19 @@ export default function TableList(params) {
 
     return (
         <div className={styles.TableList} >
-            <Table dataSource={errorList}  >
-                <Column title="序号" dataIndex="id" key="age" />
-                <Column title="时间" dataIndex="createdAt" key="address" />
-                <Column title="报错方法" dataIndex="errorFunction" key="address" />
-                <Column title="报错参数" dataIndex="errorFunctionParams" key="address" />
-                <Column title="报错页面" dataIndex="errorPageUrl" key="address" />
-                <Column title="备注信息" dataIndex="message" key="address" />
-                <Column title="上报用户" dataIndex="uid" key="address" />
-                <Column title="状态" dataIndex="status" key="address" />
-                <Column title="操作" dataIndex="createdAt" key="address"  render={actionRender} />
+            <Table dataSource={errorList} scroll={{
+                x: 1500,
+                y: screenHeight - 900,
+            }} >
+                <Column title="序号" dataIndex="id" key="id" width={100} />
+                <Column title="时间" dataIndex="createdAt" key="id" width={200} />
+                <Column title="报错方法" dataIndex="errorFunction" key="id" />
+                <Column title="报错参数" dataIndex="errorFunctionParams" key="id" />
+                <Column title="报错页面" dataIndex="errorPageUrl" key="id" />
+                <Column title="备注信息" dataIndex="message" key="id" />
+                <Column title="上报用户" dataIndex="uid" key="id" />
+                <Column title="状态" dataIndex="status" key="id" />
+                <Column title="操作" dataIndex="createdAt" key="id" width={200} render={actionRender} />
             </Table>
         </div>
     )

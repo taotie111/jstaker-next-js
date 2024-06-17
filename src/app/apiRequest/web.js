@@ -13,3 +13,10 @@ export function getWebErrorList(data){
         data: data
     })
 }
+
+export function getPerformMonitorList(data){
+    return request("/weblog/getPerformMonitorList",{
+        method: 'GET',
+        data: data
+    })
+}

@@ -9,8 +9,37 @@
     background: #FFFFFF;
     border-radius: 10px;
     padding: 15px 13px;
+    .title{
+        margin-right: 40px;
+    }
+}
+
+.TitleLine{
+    display: flex;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 16px;
+    height: 100%;
+    background-color: #FFFFFF;
+    font-size: 18px;
+    line-height: 42px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 15px 13px;
     overflow-y: auto;
     .title{
         margin-right: 40px;
+    }
+}
+
+.TabList{
+    height: 100%;
+    .header{
+        margin-top: 20px;
+        margin-right: 8px;
+        float: right;
+    }
+    .contain{
+        height: 800px;
     }
 }
