@@ -49,6 +49,7 @@ export  const  POST = async (
 
     const data: error_information_data = {
         ...json,
+        errorFunctionParams: JSON.stringify(json.errorFunctionParams),
         ip:ip
       };
     const createMany = await prisma.error_information.createMany({
@@ -59,7 +60,7 @@ export  const  POST = async (
     return NextResponse.json({
         success: true,
         errorMessage: '创建数据成功',
-        data: {}
+        data: {createMany}
     })
 }
 
