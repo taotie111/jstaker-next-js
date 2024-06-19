@@ -40,6 +40,7 @@ export const GET = async (
         timeCondition.lte = new Date(endDate); // 小于等于endDate
     }
     const searchParams = req.nextUrl.searchParams;
+    console.log(searchParams, 'searchParams')
     const params: error_information_data = {
         id: searchParams.get('id') ? Number(searchParams.get('id')) : null,
         type: searchParams.get('type') ? Number(searchParams.get('type')) : null,
@@ -48,8 +49,8 @@ export const GET = async (
         errorFunction: searchParams.get('errorFunction'),
         message: searchParams.get('message'),
         projectName: searchParams.get('projectName'),
-        startDate: searchParams.get('startDate') ? new Date(searchParams.get('startDate')) : undefined,
-        endDate: searchParams.get('endDate') ? new Date(searchParams.get('endDate')) : undefined,
+        startDate: searchParams.get('startDate') ? new Date(searchParams.get('startDate') || 1) : undefined,
+        endDate: searchParams.get('endDate') ? new Date(searchParams.get('endDate') || 1) : undefined,
         ip: searchParams.get('ip'),
         token: searchParams.get('token')
     };
@@ -59,9 +60,8 @@ export const GET = async (
     if (params.type) {
         params.type = Number(params.type);
     }
-    console.log(timeCondition, 'timeCondition')
     function buildWhereCondition(params: error_information_data ) {
-        const whereCondition = {};
+        const whereCondition: WhereCondition = {};
         Object.keys(params).forEach(key => {
             // 如果参数不为空或未定义，则添加到查询条件中
             if (params[key] !== null && params[key] !== undefined) {
@@ -101,6 +101,10 @@ export const GET = async (
         errorMessage: '',
         data: { data }
     })
+}
+
+export interface WhereCondition {
+    [key: string]:any
 }
 export interface error_information_data {
     id: number | null;
