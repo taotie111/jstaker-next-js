@@ -26,7 +26,6 @@ export const GET = async (
     const params = deleteParamsIsNotNull({
         id: id,
     });
-    console.log(req.nextUrl.searchParams)
     if (params.id){
         params.id = Number(params.id);
     }

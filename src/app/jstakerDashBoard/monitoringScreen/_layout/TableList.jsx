@@ -10,7 +10,7 @@ export default function TableList(params) {
     console.log(params, 'params');
     const { Column } = Table;
     const [errorList, setErrorList] = useState(params.errorList);
-    const [screenHeight, setScreenHeight] = useState(window.innerHeight);
+    const [screenHeight, setScreenHeight] = useState(0);
 
     useEffect(() => {
         const handleResize = () => {

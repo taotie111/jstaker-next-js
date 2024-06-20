@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 //监控站点
 // const checkWebListAtom = atom([])
 function MonitorSite(props) {
-  console.log(props,'props')
   //checkedList存放的是value值数组
   const [checkedList, setCheckedList] = useAtom(checkWebListAtom);
   const base = "/jstakerDashBoard/monitoringScreen/"

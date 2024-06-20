@@ -2,6 +2,8 @@ import styles from './styles.module.css'
 import TitleLine from "../_layout/TitleLine"
 import TableList from "../_layout/TableList"
 import TabList from "../_layout/TabList"
+import Panel from "../_layout/Panel"
+import {context} from "../../context"
 import { getWebList, getWebErrorList,getPerformMonitorList } from '@/app/apiRequest/web';
 // import { useAtomValue, } from 'jotai'
 // import {checkWebListAtom} from "@/app/store/webListData/state.js"
@@ -18,7 +20,6 @@ export default async function MonitoringScreen(params) {
     const fetchWebErrorList = async () => {
         const res = await getWebErrorList()
         return res.data.data
-        console.log(res,'res')
     }
     let errorList = await fetchWebErrorList();
 
@@ -26,12 +27,8 @@ export default async function MonitoringScreen(params) {
         const res = await getPerformMonitorList();
         return res.data.data;
     }
-
+    console.log(context, 'context')
     let performMonitorList = await fetchPerformMonitorList()
-    // console.log(webdetail, 'webDetail')
-    // console.log(checkWebListAtom.toString());
-    // const webList = useAtomValue(checkWebListAtom)
-    // console.log(webList)
     return (
         <div className={styles.monitoringScreen} >
             <div className={styles.titleLine}>
@@ -39,8 +36,8 @@ export default async function MonitoringScreen(params) {
             </div>
             <div className={styles}>
                 <div className={styles.errorDetail}>
-                    <div className={styles.panel}>
-
+                    <div className={styles.panel}>111
+                        <Panel></Panel>
                     </div>
                     <div className={styles.panelList}>
                         <TabList errorList={errorList} performMonitorList={performMonitorList}></TabList>

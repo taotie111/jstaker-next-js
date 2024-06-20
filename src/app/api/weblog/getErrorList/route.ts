@@ -22,25 +22,7 @@ export const OPTIONS = (req: NextRequest, res: NextResponse) => {
 export const GET = async (
     req: NextRequest
 ) => {
-    const id = req.nextUrl.searchParams.get('id');
-    const type = req.nextUrl.searchParams.get('type');
-    const errorPageUrl = req.nextUrl.searchParams.get('errorPageUrl');
-    const errorFunctionParams = req.nextUrl.searchParams.get('errorFunctionParams');
-    const projectName = req.nextUrl.searchParams.get('projectName');
-    const startDate = req.nextUrl.searchParams.get('startDate');
-    const endDate = req.nextUrl.searchParams.get('endDate');
-    const ip = req.nextUrl.searchParams.get('ip');
-    const token = req.nextUrl.searchParams.get('token');
-    // 构建时间范围查询条件
-    const timeCondition: any = {};
-    if (startDate) {
-        timeCondition.gte = new Date(startDate); // 大于等于startDate
-    }
-    if (endDate) {
-        timeCondition.lte = new Date(endDate); // 小于等于endDate
-    }
     const searchParams = req.nextUrl.searchParams;
-    console.log(searchParams, 'searchParams')
     const params: error_information_data = {
         id: searchParams.get('id') ? Number(searchParams.get('id')) : null,
         type: searchParams.get('type') ? Number(searchParams.get('type')) : null,
@@ -127,19 +109,4 @@ export const POST = async (
         errorMessage: '',
         data: {}
     })
-}
-
-function getQueryParams(params: any) {
-    const searchParams = params.searchParams;
-    return {
-        id: searchParams.get('id') ? Number(searchParams.get('id')) : null,
-        type: searchParams.get('type') ? Number(searchParams.get('type')) : null,
-        errorPageUrl: searchParams.get('errorPageUrl'),
-        errorFunctionParams: searchParams.get('errorFunctionParams'),
-        projectName: searchParams.get('projectName'),
-        startDate: searchParams.get('startDate') ? new Date(searchParams.get('startDate')) : undefined,
-        endDate: searchParams.get('endDate') ? new Date(searchParams.get('endDate')) : undefined,
-        ip: searchParams.get('ip'),
-        token: searchParams.get('token')
-    };
 }

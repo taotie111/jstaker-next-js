@@ -19,7 +19,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         //TODO 数据库获取用户账号密码验证
         if (parsedCredentials.success) {
-          console.log(parsedCredentials.data)
+          // console.log(parsedCredentials.data)
           const { username,password } = parsedCredentials.data;
 
           // 检查用户名是否已经存在

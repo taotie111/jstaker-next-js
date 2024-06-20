@@ -5,7 +5,6 @@ import { Button, Table } from 'antd';
 import { useState } from 'react';
 
 export default function TabList(params) {
-    console.log(params, 'params');
     const { Column } = Table;
     const tabDataList = [
         {
