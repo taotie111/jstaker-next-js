@@ -22,18 +22,15 @@ export const OPTIONS = (req: NextRequest, res: NextResponse) => {
 export const GET = async (
     req: NextRequest
 ) => {
-    const id =  req.nextUrl.searchParams.get('id');
+    const token =  req.nextUrl.searchParams.get('token');
 
     const params = deleteParamsIsNotNull({
-        id: id,
+        token: token,
     });
-    console.log(req.nextUrl.searchParams)
-    if (params.id){
-        params.id = Number(params.id);
-    }
     await prisma.$connect();
     const data = await prisma.uv.findMany({
         where: {
+            token:params.token
           },
     }); 
     await prisma.$disconnect();

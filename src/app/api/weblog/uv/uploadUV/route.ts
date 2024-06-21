@@ -25,7 +25,7 @@ export const GET = async (
     return NextResponse.json({
         success: true,
         errorMessage: '',
-        data: "错误犯法"
+        data: "错误方法"
     })
 }
 export interface uv_data {
@@ -33,7 +33,7 @@ export interface uv_data {
     uid: string;
     token: string;
     message: string;
-    ip: string;
+    ip: string | null;
     date: Date;
 }
 
@@ -41,13 +41,15 @@ export const POST = async (
     req: NextRequest,
     { params }: any
 ) => {
+    let ip = req.headers.get('X-Forwarded-For')
     const json = await req.json();
+    console.log(ip,'ip')
     const uv_inf: uv_data = {
         clickName : json.clickName,
         uid: json.uid,
         token: json.token,
         message: json.message,
-        ip: json.ip,
+        ip: ip,
         date: new Date()
     }
     await prisma.$connect();
@@ -59,7 +61,7 @@ export const POST = async (
     await prisma.$disconnect();
     return NextResponse.json({
         success: true,
-        errorMessage: '',
+        errorMessage: ip,
         data: uv
     })
 }
