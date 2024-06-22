@@ -971,7 +971,7 @@ eastasianwidth@^0.2.0:
 
 echarts@^5.5.0:
   version "5.5.0"
-  resolved "https://registry.npmmirror.com/echarts/-/echarts-5.5.0.tgz#c13945a7f3acdd67c134d8a9ac67e917830113ac"
+  resolved "https://registry.npmjs.org/echarts/-/echarts-5.5.0.tgz#c13945a7f3acdd67c134d8a9ac67e917830113ac"
   integrity sha512-rNYnNCzqDAPCr4m/fqyUFv7fD9qIsd50S6GDFgO1DxZhncCsNsG7IfUlAlvZe5oSEQxtsjnHiUuppzccry93Xw==
   dependencies:
     tslib "2.3.0"

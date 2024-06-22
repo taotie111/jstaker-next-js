@@ -36,7 +36,7 @@ export default async function MonitoringScreen(params) {
             </div>
             <div className={styles}>
                 <div className={styles.errorDetail}>
-                    <div className={styles.panel}>111
+                    <div className={styles.panel}>
                         <Panel></Panel>
                     </div>
                     <div className={styles.panelList}>

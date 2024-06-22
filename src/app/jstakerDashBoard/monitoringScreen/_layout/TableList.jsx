@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 
 
 export default function TableList(params) {
-    console.log(params, 'params');
     const { Column } = Table;
     const [errorList, setErrorList] = useState(params.errorList);
     const [screenHeight, setScreenHeight] = useState(0);
