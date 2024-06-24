@@ -20,9 +20,9 @@ export const line1 = {
     bottom: 0,
   },
   grid: {
-    // top: '0',
-    // left: '10px',
-    // right: '10px',
+    top: '40px',
+    left: '10px',
+    right: '10px',
     bottom: '40px',
     containLabel: true
   },
@@ -86,7 +86,7 @@ export const line1 = {
         // 向下取整作为起始Y点
         return Math.floor(value.min)
       },
-      name: '水位(m)',
+      name: '统计数',
       nameTextStyle: {
         // padding: [0, 0, 0, 40],
         // color: "#fff",
@@ -123,29 +123,13 @@ export const line1 = {
   ],
   color: ['#5473E8', '#FF9F24'],
   series: [{
-      name: '实测水位',
+      name: '错误统计',
       type: 'line',
       smooth: false, //true 为平滑曲线，false为直线
       symbolSize: 3,
       symbol: 'circle', //将小圆点改成实心 不写symbol默认空心
       data: [
-        1, 2, 3
-      ],
-      lineStyle: {
-        normal: {
-          width: 3,
-        }
-      },
-      yAxisIndex: 0
-    },
-    {
-      name: '计算水位',
-      type: 'line',
-      smooth: true, //true 为平滑曲线，false为直线
-      symbolSize: 3,
-      symbol: 'circle', //将小圆点改成实心 不写symbol默认空心
-      data: [
-        2, 3, 4
+        
       ],
       lineStyle: {
         normal: {
@@ -175,9 +159,9 @@ export const line2 = {
     bottom: 0,
   },
   grid: {
-    // top: '0',
-    // left: '10px',
-    // right: '10px',
+    top: '40px',
+    left: '30px',
+    right: '10px',
     bottom: '40px',
     containLabel: true
   },
@@ -224,7 +208,7 @@ export const line2 = {
       // 向下取整作为起始Y点
       return Math.floor(value.min)
     },
-    name: '库容(万m³)',
+    name: '性能',
     nameTextStyle: {
       // color: "#fff",
       fontSize: '14px'
@@ -241,9 +225,9 @@ export const line2 = {
       }
     }
   }],
-  color: ['#5473E8', '#FF9F24'],
+  color: [ '#FF9F24','#5473E8'],
   series: [{
-    name: '水位',
+    name: '执行时间(S)',
     type: 'line',
     smooth: false, //true 为平滑曲线，false为直线
     symbolSize: 3,

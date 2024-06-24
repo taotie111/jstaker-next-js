@@ -37,7 +37,7 @@ export default async function MonitoringScreen(params) {
             <div className={styles}>
                 <div className={styles.errorDetail}>
                     <div className={styles.panel}>
-                        <Panel></Panel>
+                        <Panel errorList={errorList} performMonitorList={performMonitorList}></Panel>
                     </div>
                     <div className={styles.panelList}>
                         <TabList errorList={errorList} performMonitorList={performMonitorList}></TabList>
