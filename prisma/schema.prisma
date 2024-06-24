@@ -31,6 +31,7 @@ model performance_monitoring {
   projectName String?   @db.VarChar(255)
   message     String?   @db.VarChar(255)
   id          Int       @id @default(autoincrement())
+  ip          String?   @db.VarChar(255)
   type        Int?
   duration    Int?
   uid         String?   @db.VarChar(255)

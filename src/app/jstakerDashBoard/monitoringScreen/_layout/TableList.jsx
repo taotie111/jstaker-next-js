@@ -45,7 +45,7 @@ export default function TableList(params) {
                 <Column title="报错参数" dataIndex="errorFunctionParams" key="id" />
                 <Column title="报错页面" dataIndex="errorPageUrl" key="id" />
                 <Column title="备注信息" dataIndex="message" key="id" />
-                <Column title="上报用户" dataIndex="uid" key="id" />
+                <Column title="上报用户" dataIndex="ip" key="id" />
                 <Column title="状态" dataIndex="status" key="id" />
                 <Column title="操作" dataIndex="createdAt" key="id" width={200} render={actionRender} />
             </Table>
