@@ -48,7 +48,7 @@ export default function Panel(params) {
         for (const [dateTime, item] of Object.entries(hourlyDataCount)) {
             temp.push(item.duration / item.count / 1000);
             tempTime.push(dateTime)
-            console.log(`日期时间 ${dateTime}：数据量 ${item.duration / item.count}`);
+            console.log(`日期时间  ${dateTime}：数据量 ${item.duration / item.count}`);
         }
         performMonitorListByTime = temp;
         performTimeList = tempTime;
