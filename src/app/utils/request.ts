@@ -29,8 +29,17 @@ export function request(url: string, options?: any) {
             .then(checkStatus)
             .then(parseJSON);
     } else {
-        return fetch(commonUrl + url, {
-            method: "GET"
+        let queryUrl = ""
+        const searchParams = new URLSearchParams();
+        if (data){
+            for (const key of Object.keys(data)) {
+                searchParams.append(key, data[key]);
+            }
+            queryUrl += '?' + searchParams.toString();
+        }
+
+        return fetch(commonUrl + url + queryUrl, {
+            method: "GET",
         }).then(checkStatus)
             .then(parseJSON);
     }

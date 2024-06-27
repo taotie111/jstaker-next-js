@@ -43,13 +43,14 @@ export  const  POST = async (
     req: NextRequest,
     {params} : any
 ) => {
-    // const requestBody = await req.text();
-    // console.log(requestBody);
+    let ip = req.headers.get('X-Forwarded-For')
     const json = await req.json();
     // 判断id 是否为number
 
     const data: error_information_data = {
-        ...json
+        ...json,
+        errorFunctionParams: JSON.stringify(json.errorFunctionParams),
+        ip:ip
       };
     const createMany = await prisma.error_information.createMany({
         data:[
@@ -59,7 +60,7 @@ export  const  POST = async (
     return NextResponse.json({
         success: true,
         errorMessage: '创建数据成功',
-        data: {}
+        data: {createMany}
     })
 }
 

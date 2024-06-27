@@ -40,7 +40,6 @@ export const GET = async (
         startTime:startTime,
         endTime:endTime
     });
-    console.log(req.nextUrl.searchParams)
     if (params.id){
         params.id = Number(params.id);
     }
