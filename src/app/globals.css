@@ -19,7 +19,7 @@
 
 body {
   height: 100%;
-  color: rgb(var(--foreground-rgb));
+  /* color: rgb(var(--foreground-rgb)); */
 }
 
 @layer utilities {
@@ -30,6 +30,9 @@ body {
 
 @layer components {
   .router-link {
-    @apply text-sm leading-9 pl-2 hover:bg-[#ebebeb] hover:text-[#2680ff] hover:cursor-pointer;
+    @apply mr-4 text-sm leading-9 pl-2 hover:bg-[#fef4e1] hover:text-[#ffbf75] hover:cursor-pointer;
+  }
+  .router-link-active{
+    @apply  bg-[#fef4e1] text-[#ffbf75]
   }
 }
