@@ -27,6 +27,7 @@ export const GET = async (
     const params = deleteParamsIsNotNull({
         id: id,
     });
+    console.log(id, "id -------------------")
     console.log(req.nextUrl.searchParams)
     if (params.id){
         params.id = Number(params.id);
@@ -34,8 +35,10 @@ export const GET = async (
     await prisma.$connect();
     const data = await prisma.web.findMany({
         where: {
+            id:params.id
           },
     }); 
+    console.log(data,'data')
     await prisma.$disconnect();
     return NextResponse.json({
         success: true,
@@ -43,10 +46,6 @@ export const GET = async (
         data:data
     })
 }
-export interface uv_data {
-    id: number;
-}
-
 export  const  POST = async (
     req: NextRequest,
     {params} : any

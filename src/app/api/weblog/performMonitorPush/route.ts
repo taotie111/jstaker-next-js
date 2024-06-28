@@ -39,8 +39,7 @@ export const POST = async (
     req: NextRequest,
     { params }: any
 ) => {
-    // const requestBody = await req.text();
-    // console.log(requestBody);
+
     const json = await req.json();
     // 判断id 是否为number
 
@@ -59,7 +58,6 @@ export const POST = async (
             performMonitorData
         ]
     })
-    console.log(json);
     return NextResponse.json({
         success: true,
         errorMessage: '',

@@ -61,7 +61,6 @@ export  const  POST = async (
             
     })
     if (userModule && userModule.password === data.password){
-        console.log(userModule,'userModule')
         return NextResponse.json({
             status:200,
             success: true,

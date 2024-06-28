@@ -1,6 +1,6 @@
-import { NextResponse,NextRequest } from "next/server";
-import {PrismaClient} from "@prisma/client"
-import {deleteParamsIsNotNull} from "../../../utils/apiUtils"; 
+import { NextResponse, NextRequest } from "next/server";
+import { PrismaClient } from "@prisma/client"
+import { deleteParamsIsNotNull } from "../../../utils/apiUtils";
 
 
 const prisma = new PrismaClient();
@@ -22,76 +22,87 @@ export const OPTIONS = (req: NextRequest, res: NextResponse) => {
 export const GET = async (
     req: NextRequest
 ) => {
-    const id =  req.nextUrl.searchParams.get('id');
-    const type = req.nextUrl.searchParams.get('type');
-    const errorPageUrl = req.nextUrl.searchParams.get('errorPageUrl');
-    const errorFunctionParams = req.nextUrl.searchParams.get('errorFunctionParams');
-    const projectName = req.nextUrl.searchParams.get('projectName');
-    const startDate = req.nextUrl.searchParams.get('startDate');
-    const endDate = req.nextUrl.searchParams.get('endDate');
-    
-    // 构建时间范围查询条件
-    const timeCondition:any = {};
-    if (startDate) {
-    timeCondition.gte = new Date(startDate); // 大于等于startDate
-    }
-    if (endDate) {
-    timeCondition.lte = new Date(endDate); // 小于等于endDate
-    }
-
-    const params = deleteParamsIsNotNull({
-        id: id,
-        type: type,
-        errorPageUrl: errorPageUrl,
-        errorFunctionParams: errorFunctionParams,
-        projectName: projectName
-    });
-    console.log(req.nextUrl.searchParams)
-    if (params.id){
+    const searchParams = req.nextUrl.searchParams;
+    const params: error_information_data = {
+        id: searchParams.get('id') ? Number(searchParams.get('id')) : null,
+        type: searchParams.get('type') ? Number(searchParams.get('type')) : null,
+        errorPageUrl: searchParams.get('errorPageUrl'),
+        errorFunctionParams: searchParams.get('errorFunctionParams'),
+        errorFunction: searchParams.get('errorFunction'),
+        message: searchParams.get('message'),
+        projectName: searchParams.get('projectName'),
+        startDate: searchParams.get('startDate') ? new Date(searchParams.get('startDate') || 1) : undefined,
+        endDate: searchParams.get('endDate') ? new Date(searchParams.get('endDate') || 1) : undefined,
+        ip: searchParams.get('ip'),
+        token: searchParams.get('token')
+    };
+    if (params.id) {
         params.id = Number(params.id);
     }
-    if (params.type){
+    if (params.type) {
         params.type = Number(params.type);
     }
+    function buildWhereCondition(params: error_information_data ) {
+        const whereCondition: WhereCondition = {};
+        Object.keys(params).forEach(key => {
+            // 如果参数不为空或未定义，则添加到查询条件中
+            if (params[key] !== null && params[key] !== undefined) {
+                if (["errorPageUrl", "errorFunctionParams", "projectName"].includes(key)) {
+                    // 用模糊搜索处理特定的字符串字段
+                    whereCondition[key] = { contains: params[key] };
+                } else {
+                    // 直接添加其他类型的条件
+                    whereCondition[key] = params[key];
+                }
+            }
+        });
+    
+        // 特殊处理日期范围
+        if (params.startDate || params.endDate) {
+            whereCondition.createdAt = {};
+            if (params.startDate) whereCondition.createdAt.gte = new Date(params.startDate);
+            if (params.endDate) whereCondition.createdAt.lte = new Date(params.endDate);
+        }
+    
+        return whereCondition;
+    }
+    
+
+    
+    const whereCondition = buildWhereCondition(params);
+    
+
     await prisma.$connect();
     const data = await prisma.error_information.findMany({
-        where: {
-            id: params.id,
-            type: params.type,
-            createdAt: timeCondition,
-            errorPageUrl:{
-                contains: params.errorPageUrl
-            },
-            errorFunctionParams:{
-                contains: params.errorFunctionParams
-            },
-            projectName:{
-                contains: params.projectName
-            }
-          },
+        where: whereCondition,
+        orderBy: { createdAt: 'desc' }
     });
     await prisma.$disconnect();
     return NextResponse.json({
         success: true,
-        errorMessage:'',
-        data:{data}
+        errorMessage: '',
+        data: { data }
     })
 }
+
+export interface WhereCondition {
+    [key: string]:any
+}
 export interface error_information_data {
-    id: number;
-    errorFunction: string;
-    errorPageUrl: string;
-    errorFunctionParams: string;
-    projectName: string;
-    uid?: string;
-    type: number;
-    message: string;
+    id: number | null;
+    errorFunction: string | null;
+    errorPageUrl: string | null;
+    errorFunctionParams: string | null;
+    projectName: string | null;
+    uid?: string | null;
+    type: number | null;
+    message: string | null;
     [property: string]: any;
 }
 
-export  const  POST = async (
+export const POST = async (
     req: NextRequest,
-    {params} : any
+    { params }: any
 ) => {
     return NextResponse.json({
         success: true,
@@ -99,4 +110,3 @@ export  const  POST = async (
         data: {}
     })
 }
-

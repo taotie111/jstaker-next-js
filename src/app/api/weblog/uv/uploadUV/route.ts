@@ -43,7 +43,6 @@ export const POST = async (
 ) => {
     let ip = req.headers.get('X-Forwarded-For')
     const json = await req.json();
-    console.log(ip,'ip')
     const uv_inf: uv_data = {
         clickName : json.clickName,
         uid: json.uid,

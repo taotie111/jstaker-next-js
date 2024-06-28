@@ -1,5 +1,4 @@
 .dashboard{
-    height: 100%;
 }
 
 .container{
@@ -22,5 +21,35 @@
 }
 
 .left {
-    height: 100%;
+
+}
+
+.errorDetail{
+    margin-top: 12px;
+    margin-left: 16px;
+    margin-right: 16px;
+    height: 524px;
+    display: flex;
+    .panel{
+        height: 100%;
+        border-radius: 10px;
+        width: 80%;
+
+    }
+    .panelList{
+        height: 100%;
+        border-radius: 10px;
+        margin-left: 12px;
+        width: calc(20% - 12px);
+        background: #ffffff;
+    }
+
+}
+.dataList{
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 16px;
+    border-radius: 10px;
+    height: calc(100vh - 730px); 
+    background-color: #ffffff;      
 }
