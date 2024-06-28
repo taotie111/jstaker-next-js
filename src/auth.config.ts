@@ -6,7 +6,6 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-   
       const isLogIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith('/jstakerDashBoard');
       if (isOnDashboard) {
