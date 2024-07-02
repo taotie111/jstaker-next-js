@@ -10,18 +10,27 @@ import { getWebList, getWebErrorList,getPerformMonitorList } from '@/app/apiRequ
 export default async function MonitoringScreen(params) {
     const id = params.params.id;
 
+    // 查询参数
+    const selectParams = {
+        id: id,
+        startTime: null,
+        endTime: null
+    }
+    
     async function fetchWebDetail() {
         const res = await getWebList({ id: id });
         return res.data;
     }
-
-    const webdetail = await fetchWebDetail()
-
-    const fetchWebErrorList = async () => {
-        const res = await getWebErrorList()
+    const fetchWebErrorList = async (webdetail) => {
+        // console.log(webdetail[0].name, 'webdetail.name')
+        const res = await getWebErrorList({})
         return res.data.data
     }
-    let errorList = await fetchWebErrorList();
+
+    const webdetail = await fetchWebDetail()
+    let errorList = await fetchWebErrorList(webdetail);
+
+
 
     const fetchPerformMonitorList = async () => {
         const res = await getPerformMonitorList();
