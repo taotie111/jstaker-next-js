@@ -54,7 +54,7 @@ export  const  POST = async (
     const data: user = {
         ...json
       };
-    const createMany = await prisma.User.createMany({
+    const createMany = await prisma.user.createMany({
         data:[
             data
         ]
