@@ -1,4 +1,4 @@
-const commonUrl = "http://localhost:13189/api/";
+const commonUrl = "http://localhost:13188/api/";
 // 解析 json
 export const parseJSON = (response: Response) => {
     return response.json();
