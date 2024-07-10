@@ -29,17 +29,19 @@ export const GET = async (
     const params = deleteParamsIsNotNull({
         token: token,
         clickName:clickName,
-        startDate:startDate,
-        endDate:endDate
+        startDate:startDate ? new Date(startDate) : new Date(0),
+        endDate:endDate? new Date(endDate) : new Date()
     });
+    console.log(params, 'params')
+    
     await prisma.$connect();
     const data = await prisma.uv.findMany({
         where: {
             token:params.token,
             clickName: params.clickName,
             date: {
-                gte: new Date(params.startDate), // 大于等于开始时间
-                lte: new Date(params.endDate), // 小于等于结束时间
+                gte: params.startDate, // 大于等于开始时间
+                lte: params.endDate, // 小于等于结束时间
             }
           },
     }); 
