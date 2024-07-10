@@ -1,6 +1,6 @@
-import { NextResponse,NextRequest } from "next/server";
-import {PrismaClient} from "@prisma/client"
-import {deleteParamsIsNotNull} from "../../../../utils/apiUtils"; 
+import { NextResponse, NextRequest } from "next/server";
+import { PrismaClient } from "@prisma/client"
+import { deleteParamsIsNotNull } from "../../../../utils/apiUtils";
 
 
 const prisma = new PrismaClient();
@@ -27,41 +27,51 @@ export const GET = async (
      * time: 统计的时间
      * clickName: 非必须，可筛选特定的clickName的曝光
      */
-    const token =  req.nextUrl.searchParams.get('token');
+    const type = req.nextUrl.searchParams.get('type');
+    const token = req.nextUrl.searchParams.get('token');
     const clickName = req.nextUrl.searchParams.get('clickName');
     const startDate = req.nextUrl.searchParams.get('startDate'); // 开始时间参数
     const endDate = req.nextUrl.searchParams.get('endDate'); // 结束时间参数
     const params = deleteParamsIsNotNull({
         token: token,
-        clickName:clickName,
-        startDate:startDate,
-        endDate:endDate
+        clickName: clickName,
+        startDate: startDate ? new Date(startDate) : new Date(0),
+        endDate: endDate ? new Date(endDate) : new Date()
     });
-    await prisma.$connect();
-    const data = await prisma.uv.findMany({
-        where: {
-            token:params.token,
-            clickName: params.clickName,
-            date: {
-                gte: new Date(params.startDate), // 大于等于开始时间
-                lte: new Date(params.endDate), // 小于等于结束时间
+    let data = null;
+    if (type == null) {
+        return NextResponse.json({
+            success: false,
+            errorMessage: 'need type params',
+            data: {
+
             }
-          },
-    }); 
+        })
+    }
+    const typeFunction = typeHander[type];
+    if (!typeFunction) {
+        return NextResponse.json({
+            success: true,
+            errorMessage: 'type need to be minute or hour or day',
+            data: data
+        })
+    }
+    await prisma.$connect();
+    data = typeFunction(params);
     await prisma.$disconnect();
     return NextResponse.json({
         success: true,
-        errorMessage:'',
-        data:data
+        errorMessage: '',
+        data: data
     })
 }
 export interface uv_data {
     id: number;
 }
 
-export  const  POST = async (
+export const POST = async (
     req: NextRequest,
-    {params} : any
+    { params }: any
 ) => {
     return NextResponse.json({
         success: true,
@@ -70,3 +80,53 @@ export  const  POST = async (
     })
 }
 
+const getMinutePVDataList = async (params: any) => {
+    const data = await prisma.pv_minutes.findMany({
+        where: {
+            token: params.token,
+            clickName: params.clickName,
+            time: {
+                gte: new Date(params.startDate), // 大于等于开始时间
+                lte: new Date(params.endDate), // 小于等于结束时间
+            }
+        },
+    });
+    return data;
+}
+const getHourPVDataList = async (params: any) => {
+    const data = await prisma.pv_hours.findMany({
+        where: {
+            token: params.token,
+            clickName: params.clickName,
+            time: {
+                gte: new Date(params.startDate), // 大于等于开始时间
+                lte: new Date(params.endDate), // 小于等于结束时间
+            }
+        },
+    });
+    return data;
+}
+
+const getDayPVDataList = async (params: any) => {
+    const data = await prisma.pv_days.findMany({
+        where: {
+            token: params.token,
+            clickName: params.clickName,
+            time: {
+                gte: new Date(params.startDate), // 大于等于开始时间
+                lte: new Date(params.endDate), // 小于等于结束时间
+            }
+        },
+    });
+    return data;
+}
+
+
+interface TypeHandler {
+    [key: string]: Function;
+}
+const typeHander: TypeHandler = {
+    minute: getMinutePVDataList,
+    hour: getHourPVDataList,
+    day: getDayPVDataList
+}

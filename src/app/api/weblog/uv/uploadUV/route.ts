@@ -1,8 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client"
 import { deleteParamsIsNotNull } from "../../../../utils/apiUtils";
-
-
 const prisma = new PrismaClient();
 
 export const OPTIONS = (req: NextRequest, res: NextResponse) => {
