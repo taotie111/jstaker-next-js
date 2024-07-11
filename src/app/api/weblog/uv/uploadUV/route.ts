@@ -1,8 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client"
 import { deleteParamsIsNotNull } from "../../../../utils/apiUtils";
-
-
 const prisma = new PrismaClient();
 
 export const OPTIONS = (req: NextRequest, res: NextResponse) => {
@@ -22,10 +20,29 @@ export const OPTIONS = (req: NextRequest, res: NextResponse) => {
 export const GET = async (
     req: NextRequest
 ) => {
+    const searchParams = req.nextUrl.searchParams;
+    let ip = req.headers.get('X-Forwarded-For')
+    console.log(searchParams.get("params"));
+    const params = JSON.parse(searchParams.get("params") || "");
+    const uv_inf: uv_data = {
+        clickName : params.clickName,
+        uid: params.uid,
+        token: params.token,
+        message: params.message,
+        ip: ip,
+        date: new Date()
+    }
+    await prisma.$connect();
+    const uv = await prisma.uv.createMany({
+        data: [
+            uv_inf
+        ]
+    }); 
+    await prisma.$disconnect();
     return NextResponse.json({
         success: true,
         errorMessage: '',
-        data: "错误方法"
+        data: uv
     })
 }
 export interface uv_data {

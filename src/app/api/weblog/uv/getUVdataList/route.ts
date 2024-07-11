@@ -23,14 +23,26 @@ export const GET = async (
     req: NextRequest
 ) => {
     const token =  req.nextUrl.searchParams.get('token');
-
+    const clickName = req.nextUrl.searchParams.get('clickName');
+    const startDate = req.nextUrl.searchParams.get('startDate'); // 开始时间参数
+    const endDate = req.nextUrl.searchParams.get('endDate'); // 结束时间参数
     const params = deleteParamsIsNotNull({
         token: token,
+        clickName:clickName,
+        startDate:startDate ? new Date(startDate) : new Date(0),
+        endDate:endDate? new Date(endDate) : new Date()
     });
+    console.log(params, 'params')
+    
     await prisma.$connect();
     const data = await prisma.uv.findMany({
         where: {
-            token:params.token
+            token:params.token,
+            clickName: params.clickName,
+            date: {
+                gte: params.startDate, // 大于等于开始时间
+                lte: params.endDate, // 小于等于结束时间
+            }
           },
     }); 
     await prisma.$disconnect();

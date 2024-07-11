@@ -8,7 +8,8 @@ import { line1, line2, default_charts } from './chart.js'
 export default function Panel(params) {
     const [errorList, setErrorList] = useState(params.errorList);
     const [performMonitorList, setPerformMonitorList] = useState(params.performMonitorList);
-
+    const [pvList, setPvList] = useState(params.pvList);
+    
     let errorCountListByTime = [];
     let timeList = []
     let performMonitorListByTime = [];

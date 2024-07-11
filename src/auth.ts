@@ -4,13 +4,17 @@ import { z } from "zod";
 import { authConfig } from "./auth.config";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+<<<<<<< HEAD
+=======
+import { User} from "@prisma/client";
+>>>>>>> 2e7992cb4eace3a7461f5ccf9b8abbf01c308342
 
 const prisma = new PrismaClient();
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
-      async authorize(credentials) {
+      async authorize(credentials, request):  Promise<User | null>  {
         //验证参数合法性
         const parsedCredentials = z
           .object({ username: z.string().min(4), password: z.string().min(3) })
@@ -32,8 +36,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     
           if (passwordsMatch){
               return {
+<<<<<<< HEAD
                 name: userModule?.username,
                 id: userModule?.id,
+=======
+                username: userModule?.username || null,
+                id: userModule?.id ,
+                email: userModule?.email,
+                password: userModule?.password,
+                createdAt: userModule?.createdAt,
+                updatedAt: userModule?.updatedAt,
+                role: userModule?.role,
+                last_login_browser:  null,
+                last_login_ip: null,
+                last_login_time: null,
+                last_login_location: null,
+                last_login_device: null,
+                last_login_os: null,
+                emailVerified: null,
+                image: null
+>>>>>>> 2e7992cb4eace3a7461f5ccf9b8abbf01c308342
               }
           }
           //   const user = await getUser(email);
@@ -41,6 +63,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           //   const passwordsMatch = await bcrypt.compare(password, user.password);
           //   if (passwordsMatch) return user;
         }
+<<<<<<< HEAD
         //这个返回值出现下划线
         // return NextResponse.json({
         //   status: 200,
@@ -49,6 +72,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         //   data: {},
         // });
         return null;;
+=======
+        return null
+>>>>>>> 2e7992cb4eace3a7461f5ccf9b8abbf01c308342
       },
     }),
   ],

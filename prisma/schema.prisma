@@ -144,3 +144,51 @@ model verificationtoken {
 
   @@unique([identifier, token], map: "VerificationToken_identifier_token_key")
 }
+
+model perfermance_minutes {
+  id        Int      @id @default(autoincrement())
+  time      DateTime
+  duration  Int
+  clickName String   @db.VarChar(255)
+  token     String   @db.VarChar(255)
+}
+
+model perfermance_hours {
+  id        Int      @id @default(autoincrement())
+  time      DateTime
+  duration  Int
+  clickName String   @db.VarChar(255)
+  token     String   @db.VarChar(255)
+}
+
+model perfermance_days {
+  id        Int      @id @default(autoincrement())
+  time      DateTime
+  duration  Int
+  clickName String   @db.VarChar(255)
+  token     String   @db.VarChar(255)
+}
+
+model pv_minutes {
+  id        Int      @id @default(autoincrement())
+  time      DateTime
+  data      Int
+  clickName String   @db.VarChar(255)
+  token     String   @db.VarChar(255)
+}
+
+model pv_hours {
+  id        Int      @id @default(autoincrement())
+  time      DateTime
+  data      Int
+  clickName String   @db.VarChar(255)
+  token     String   @db.VarChar(255)
+}
+
+model pv_days {
+  id        Int      @id @default(autoincrement())
+  time      DateTime
+  data      Int
+  clickName String   @db.VarChar(255)
+  token     String   @db.VarChar(255)
+}
