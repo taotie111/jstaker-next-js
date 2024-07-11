@@ -1,4 +1,3 @@
-
 import React from "react";
 import BgManagement from "./bgManagement";
 import MonitorSite from "./monitorSite";
@@ -14,7 +13,7 @@ async function siderbar() {
   }
   const webListData = await getWebListData()
   return (
-    <div className="w-65 bg-white py-2  px-4 h-full">
+    <div className="w-65  py-2  pl-4 bg-white">
       <BgManagement />
       <MonitorSite webListData={webListData}/>
       <InspectionTime />

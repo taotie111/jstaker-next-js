@@ -7,15 +7,18 @@
     "nodeStart": "node start.js",
     "build": "next build",
     "start": "next start -p 13188",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "@ant-design/nextjs-registry": "^1.0.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.16",
     "@prisma/client": "^5.12.1",
     "antd": "^5.16.4",
+    "clsx": "^2.1.1",
     "cors": "^2.8.5",
     "echarts": "^5.5.0",
     "jotai": "^2.8.3",
