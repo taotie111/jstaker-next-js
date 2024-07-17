@@ -9,7 +9,7 @@ export default function Panel(params) {
     const [errorList, setErrorList] = useState(params.errorList);
     const [performMonitorList, setPerformMonitorList] = useState(params.performMonitorList);
     const [pvList, setPvList] = useState(params.pvList);
-    
+
     let errorCountListByTime = [];
     let timeList = []
     let performMonitorListByTime = [];
@@ -85,6 +85,8 @@ export default function Panel(params) {
             temp.push(count);
             tempTime.push(dateTime)
         }
+        temp.reverse();
+        tempTime.reverse();
         errorCountListByTime = temp;
         timeList = tempTime;
     }

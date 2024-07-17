@@ -6,9 +6,10 @@ export const authConfig = {
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
-
+      console.log(auth);
       const isLogIn = !!auth?.user?.name;
       const isOnDashboard = nextUrl.pathname.startsWith('/jstakerDashBoard');
+      console.log(isLogIn,isOnDashboard,'-----------------------------');
       if (isOnDashboard) {
         if (isLogIn) return true;
         return false; // Redirect unauthenticated users to login page

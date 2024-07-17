@@ -30,10 +30,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                   
           })
           const passwordsMatch = (password === userModule?.password)
-    
+          console.log(userModule, 'userModule')
           if (passwordsMatch){
+            console.log({
+              username: userModule?.username || null,
+              id: userModule?.id ,
+              email: userModule?.email,
+              password: userModule?.password,
+              createdAt: userModule?.createdAt,
+              updatedAt: userModule?.updatedAt,
+              role: userModule?.role,
+              last_login_browser:  null,
+              last_login_ip: null,
+              last_login_time: null,
+              last_login_location: null,
+              last_login_device: null,
+              last_login_os: null,
+              emailVerified: null,
+              image: null
+            })
               return {
-                username: userModule?.username || null,
+                name: userModule?.username || null,
                 id: userModule?.id ,
                 email: userModule?.email,
                 password: userModule?.password,
