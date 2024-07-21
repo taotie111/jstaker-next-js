@@ -12,7 +12,7 @@ const job = schedule.scheduleJob('*/3 * * * * *', async () => { // 每天晚上1
     const date = new Date();
     const options = { timeZone: 'Asia/Shanghai', hour12: false };
     const utc8TimeString = date.toLocaleString('en-US', options);
-    console.log(utc8TimeString);
+    // console.log(utc8TimeString);
     
     await prisma.$connect();
     // TODO 通过数据库表获取需处理的数据列表
@@ -31,36 +31,41 @@ const job = schedule.scheduleJob('*/3 * * * * *', async () => { // 每天晚上1
             }
         }
     });
-    console.log(data, 'data')
-    // 使用JavaScript来分组和统计
-    // const groupedData = data.reduce((acc, item) => {
-    //     const minute = new Date(item.date).setSeconds(0, 0); // 设置秒和毫秒为0，只保留分钟
-    //     const key = `${item.clickName}-${minute}`;
-    //     if (!acc[key]) {
-    //         acc[key] = { clickName: item.clickName, minute: minute, count: 0, token: item.token };
-    //     }
-    //     acc[key].count += 1;
-    //     return acc;
-    // }, {});
+    // console.log(data, 'data')
     // console.log(groupedData, 'groupedData');
-    // // 生成包含所有分钟的时间数组
-    // const allMinutes = [];
-    // for (let i = 0; i < 1440; i++) { // 一天有1440分钟
-    //     allMinutes.push(new Date(startDate.getTime() + i * 60000));
-    // }
-
-    // // 将所有分钟的数据与实际统计的数据进行合并
+    // 生成包含所有分钟的时间数组
+    const allMinutes = {};
+    console.log(startDate.getTime() + 60000,'startDate.getTime()');
+    for (let i = 0; i < 1440; i++) { // 一天有1440分钟
+        allMinutes[startDate.getTime() + i * 60000] = 0
+    }
+    for (let i=0; i < data.length; i++){
+        allMinutes[new Date(data[i].date).setSeconds(0, 0)] = allMinutes[new Date(data[i].date).setSeconds(0, 0)] + 1;
+    }
+    const insertData = [];
+    Object.keys(allMinutes).forEach(key => {
+        insertData.push({
+            time: key,
+            data: allMinutes[key],
+            ChinaTime: moment(key).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
+            clickName: pv_DataList[0].clickName,
+            token: pv_DataList[0].token,
+        })
+    })
+    // 将所有分钟的数据与实际统计的数据进行合并
     // const mergedData = allMinutes.reduce((acc, minute) => {
     //     Object.keys(groupedData).forEach(key => {
     //         const [clickName, token] = key.split('-');
     //         const minuteKey = `${clickName}-${minute.getTime()}`;
     //         if (!acc[minuteKey]) {
     //             acc[minuteKey] = { clickName, minute, count: 0, token };
+    //         } else {
+    //             acc[minuteKey].count = acc[minuteKey].count + 1
     //         }
     //     });
     //     return acc;
     // }, {});
-
+    // console.log(mergedData, 'mergedData')
     // Object.keys(groupedData).forEach(key => {
     //     const { clickName, minute, count, token } = groupedData[key];
     //     const minuteKey = `${clickName}-${minute}`;
@@ -69,19 +74,11 @@ const job = schedule.scheduleJob('*/3 * * * * *', async () => { // 每天晚上1
     //     }
     // });
 
-    // // 将合并后的数据存储到pv_minutes表中
-    // const insertData = Object.values(mergedData).map(item => ({
-    //     time: new Date(item.minute),
-    //     data: item.count,
-    //     ChinaTime: moment(new Date(item.minute)).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
-    //     clickName: item.clickName,
-    //     token: item.token
-    // }));
+    //将合并后的数据存储到pv_minutes表中
 
-    // console.log(insertData);
-    // await prisma.pv_minutes.createMany({
-    //     data: insertData
-    // });
+    await prisma.pv_minutes.createMany({
+        data: insertData
+    });
 
     // 打印结果
     console.log('Data inserted successfully');
