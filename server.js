@@ -44,14 +44,16 @@ const job = schedule.scheduleJob('*/3 * * * * *', async () => { // 每天晚上1
     }
     const insertData = [];
     Object.keys(allMinutes).forEach(key => {
+        let time = parseInt(key)
         insertData.push({
-            time: key,
+            time: time,
             data: allMinutes[key],
-            ChinaTime: moment(key).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
+            ChinaTime: moment(time).utcOffset(8).format('YYYY-MM-DD HH:mm:ss'),
             clickName: pv_DataList[0].clickName,
             token: pv_DataList[0].token,
         })
     })
+    console.log(insertData);
     // 将所有分钟的数据与实际统计的数据进行合并
     // const mergedData = allMinutes.reduce((acc, minute) => {
     //     Object.keys(groupedData).forEach(key => {
@@ -76,9 +78,9 @@ const job = schedule.scheduleJob('*/3 * * * * *', async () => { // 每天晚上1
 
     //将合并后的数据存储到pv_minutes表中
 
-    await prisma.pv_minutes.createMany({
-        data: insertData
-    });
+    // await prisma.pv_minutes.createMany({
+    //     data: insertData
+    // });
 
     // 打印结果
     console.log('Data inserted successfully');
