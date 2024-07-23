@@ -175,6 +175,7 @@ model pv_minutes {
   data      Int
   clickName String   @db.VarChar(255)
   token     String   @db.VarChar(255)
+  ChinaTime String   @db.VarChar(255)
 }
 
 model pv_hours {
@@ -183,6 +184,7 @@ model pv_hours {
   data      Int
   clickName String   @db.VarChar(255)
   token     String   @db.VarChar(255)
+  ChinaTime String   @db.VarChar(255)
 }
 
 model pv_days {
@@ -191,4 +193,5 @@ model pv_days {
   data      Int
   clickName String   @db.VarChar(255)
   token     String   @db.VarChar(255)
+  ChinaTime String   @db.VarChar(255)
 }
