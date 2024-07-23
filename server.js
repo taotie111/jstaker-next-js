@@ -5,7 +5,7 @@ const moment =  require('moment/moment');
 const prisma = new PrismaClient();
 
 // 定义定时任务
-const job = schedule.scheduleJob('*/3 * * * * *', async () => { // 每天晚上12点触发任务
+const job = schedule.scheduleJob('55 23 * * * *', async () => { // 每天晚上12点触发任务
     const currentDate = new Date();
     const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0); // 当天的起始时间
     const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59); // 当天的结束时间
@@ -78,9 +78,9 @@ const job = schedule.scheduleJob('*/3 * * * * *', async () => { // 每天晚上1
 
     //将合并后的数据存储到pv_minutes表中
 
-    // await prisma.pv_minutes.createMany({
-    //     data: insertData
-    // });
+    await prisma.pv_minutes.createMany({
+        data: insertData
+    });
 
     // 打印结果
     console.log('Data inserted successfully');
