@@ -39,6 +39,14 @@ export const GET = async (
         ]
     }); 
     await prisma.$disconnect();
+    return NextResponse.json(uv, {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
+      })
     return NextResponse.json({
         success: true,
         errorMessage: '',
@@ -75,10 +83,13 @@ export const POST = async (
         ]
     }); 
     await prisma.$disconnect();
-    return NextResponse.json({
-        success: true,
-        errorMessage: ip,
-        data: uv
-    })
+    return NextResponse.json(uv, {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
+      })
 }
 
