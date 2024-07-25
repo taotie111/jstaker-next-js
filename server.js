@@ -5,7 +5,7 @@ const moment =  require('moment/moment');
 const prisma = new PrismaClient();
 
 // 定义定时任务
-const job = schedule.scheduleJob('*/5 * * * * *', async () => { // 每天晚上12点触发任务
+const job = schedule.scheduleJob('59 23 * * * *', async () => { // 每天晚上12点触发任务
     const currentDate = new Date();
     const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0); // 当天的起始时间
     const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59); // 当天的结束时间
@@ -31,17 +31,16 @@ const job = schedule.scheduleJob('*/5 * * * * *', async () => { // 每天晚上1
             }
         }
     });
-    // console.log(data, 'data')
-    // console.log(groupedData, 'groupedData');
+
     // 生成包含所有分钟的时间数组
     const allMinutes = {};
     const allHour = {};
     const allDay = {};
-    console.log(startDate.getTime() + 60000,'startDate.getTime()');
     for (let i = 0; i < 1440; i++) { // 一天有1440分钟
         allMinutes[startDate.getTime() + i * 60000] = 0
     }
     for (let i=0; i < 24; i++){
+        console.log(startDate.getTime() + i * 1000 * 60 * 60);
         allHour[startDate.getTime() + i * 1000 * 60 * 60] =0
     }
     for (let i=0; i < 1; i++){
@@ -49,8 +48,8 @@ const job = schedule.scheduleJob('*/5 * * * * *', async () => { // 每天晚上1
     }
     for (let i=0; i < data.length; i++){
         allMinutes[new Date(data[i].date).setSeconds(0, 0)] = allMinutes[new Date(data[i].date).setSeconds(0, 0)] + 1;
-        allHour[new Date(data[i].date).setHours(0, 0)] = allHour[new Date(data[i].date).setHours(0, 0)] + 1;
-        allDay[new Date(data[i].date).setDate(0, 0)] = allHour[new Date(data[i].date).setDate(0, 0)] + 1
+        allHour[new Date(data[i].date).setMinutes(0,0)] = allHour[new Date(data[i].date).setMinutes(0,0)] + 1;
+        allDay[new Date(data[i].date).setHours(0, 0,0)] = allDay[new Date(data[i].date).setHours(0, 0,0)] + 1
     }
     
     const insertDataMinute = [];
@@ -87,18 +86,24 @@ const job = schedule.scheduleJob('*/5 * * * * *', async () => { // 每天晚上1
         })
     })
 
-    console.log(insertData);
     // 将所有分钟的数据与实际统计的数据进行合并
- 
-
+    // console.log(insertDataMinute,"insertDataMinute");
+    // console.log(insertDataHour,"insertDataHour");
+    console.log(insertDataDay,"insertDataDay");
     //将合并后的数据存储到pv_minutes表中
 
     await prisma.pv_minutes.createMany({
-        data: insertData
+        data: insertDataMinute
+    });
+    await prisma.pv_hours.createMany({
+        data: insertDataHour
+    });
+    await prisma.pv_days.createMany({
+        data: insertDataDay
     });
 
     // 打印结果
-    console.log('Data inserted successfully');
+    console.log('Data inserted successfully', new Date());
 
     await prisma.$disconnect();
 });
