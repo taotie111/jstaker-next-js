@@ -59,8 +59,8 @@ model uv {
 }
 
 model account {
-  id                       String   @id
-  userId                   String   @unique(map: "Account_userId_key")
+  id                       Int   @id
+  userId                   Int   @unique(map: "Account_userId_key")
   type                     String
   provider                 String
   providerAccountId        String
@@ -82,7 +82,7 @@ model account {
 
 model authenticator {
   credentialID         String  @unique(map: "Authenticator_credentialID_key")
-  userId               String
+  userId               Int
   providerAccountId    String
   credentialPublicKey  String
   counter              Int
@@ -94,7 +94,7 @@ model authenticator {
   @@id([userId, credentialID])
 }
 
-model loadscript {
+model loadScript {
   id         Int      @id @default(autoincrement())
   scriptName String?  @db.VarChar(255)
   uid        String?  @db.VarChar(255)
@@ -105,9 +105,9 @@ model loadscript {
 }
 
 model session {
-  id           String   @id
+  id           Int   @id
   sessionToken String   @unique(map: "Session_sessionToken_key")
-  userId       String
+  userId       Int
   expires      DateTime
   createdAt    DateTime @default(now())
   updatedAt    DateTime
@@ -117,7 +117,7 @@ model session {
 }
 
 model User {
-  id                  String          @id
+  id                  Int          @id @default(autoincrement())
   username            String?         @unique(map: "User_username_key")
   email               String?         @unique(map: "User_email_key")
   password            String?         @db.VarChar(255)

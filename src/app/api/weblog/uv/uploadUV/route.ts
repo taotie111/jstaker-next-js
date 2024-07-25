@@ -39,6 +39,7 @@ export const GET = async (
         ]
     }); 
     await prisma.$disconnect();
+    console.log(uv);
     return NextResponse.json(uv, {
         status: 200,
         headers: {

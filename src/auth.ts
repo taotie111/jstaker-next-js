@@ -4,11 +4,24 @@ import { z } from "zod";
 import { authConfig } from "./auth.config";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { User} from "@prisma/client";
+
+interface User {
+  id: string;
+  name: string | null;
+  email: string | null;
+  password: string | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  role: string | null;
+  last_login_browser: string | null;
+  last_login_ip: string | null;
+  image: string | null;
+};
 
 const prisma = new PrismaClient();
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
+  trustHost: true,
   providers: [
     Credentials({
       async authorize(credentials, request):  Promise<User | null>  {
@@ -51,7 +64,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             })
               return {
                 name: userModule?.username || null,
-                id: userModule?.id ,
+                id: JSON.stringify(userModule?.id) ,
                 email: userModule?.email,
                 password: userModule?.password,
                 createdAt: userModule?.createdAt,
@@ -65,7 +78,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 last_login_os: null,
                 emailVerified: null,
                 image: null
-              }
+              } as User
           }
           //   const user = await getUser(email);
           //   if (!user) return null;
