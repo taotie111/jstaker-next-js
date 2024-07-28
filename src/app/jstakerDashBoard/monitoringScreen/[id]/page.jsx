@@ -31,21 +31,18 @@ export default async function MonitoringScreen(params) {
         return res.data.data
     }
 
-    // 查询性能监控详情信息
+    // 访问详情
     const fetchUVDataListCenter = async (webdetail) => {
         const resMinute = await getUVDataListCenter({
             token: webdetail.token,
-            clickName: "  ",
             type: "minute"
         })
         const resHour = await getUVDataListCenter({
             token: webdetail.token,
-            clickName: "  ",
             type: "hour"
         })
         const resDay = await getUVDataListCenter({
             token: webdetail.token,
-            clickName: "  ",
             type: "day"
         })
         const list = {
@@ -55,13 +52,18 @@ export default async function MonitoringScreen(params) {
         }
         return list;
     }
-    const webdetail = await fetchWebDetail()
-    let errorList = await fetchWebErrorList(webdetail[0]);
-    let pvList = await fetchUVDataListCenter();
+
+    // 查询性能监控详情信息
     const fetchPerformMonitorList = async () => {
         const res = await getPerformMonitorList();
         return res.data.data;
     }
+    const webdetailList = await fetchWebDetail()
+    const webdetail = webdetailList[0];
+    // 只展示第一个 webDetail
+    let errorList = await fetchWebErrorList(webdetail);
+    let pvList = await fetchUVDataListCenter(webdetail);
+
     console.log(context, 'context')
     let performMonitorList = await fetchPerformMonitorList()
     return (
@@ -72,7 +74,7 @@ export default async function MonitoringScreen(params) {
             <div className={styles}>
                 <div className={styles.errorDetail}>
                     <div className={styles.panel}>
-                        <Panel errorList={errorList} performMonitorList={performMonitorList}></Panel>
+                        <Panel errorList={errorList} performMonitorList={performMonitorList} pvList={pvList}></Panel>
                     </div>
                     <div className={styles.panelList}>
                         <TabList errorList={errorList} performMonitorList={performMonitorList}></TabList>

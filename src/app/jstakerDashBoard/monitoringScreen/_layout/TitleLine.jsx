@@ -2,8 +2,7 @@ import 'server-only'
 import styles from './styles.module.css'
 
 export default function TitleLine(params){
-    console.log(params, 'params');
-    const webDetail = params.webdetail[0];
+    const webDetail = params.webdetail;
     return (
         <div className={styles.TitleLine} >
             <div className={styles.title}>{webDetail.name}（{webDetail.token}）</div>

@@ -14,7 +14,9 @@ export default function Panel(params) {
     let timeList = []
     let performMonitorListByTime = [];
     let performTimeList = []
-    console.log(errorList, 'errorList');
+    let pvTimeList = [];
+    let PVDataListByTime = [];
+    console.log(pvList, 'pvList');
     const handlePerformMonitorList = () => {
         const hourlyDataCount = {};
         performMonitorList.forEach(item => {
@@ -90,10 +92,21 @@ export default function Panel(params) {
         errorCountListByTime = temp;
         timeList = tempTime;
     }
-
+    const handlePVData= (type) => {
+        let data = pvList[type]?.data;
+        let timeList = [];
+        let line1 = [];
+        data.map((item) => {
+            line1.push(item.data);
+            timeList.push(item.time);
+        })
+        PVDataListByTime = line1;
+        pvTimeList = timeList
+    }
     useEffect(() => {
         handleErrorData();
         handlePerformMonitorList();
+        handlePVData("hour");
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('echart'));
         var myChart1 = echarts.init(document.getElementById('echart1'));
@@ -104,8 +117,8 @@ export default function Panel(params) {
             options.xAxis[0].data = timeList
             options.series[0].data = errorCountListByTime
             let option1 = line2
-            option1.xAxis[0].data = performTimeList
-            option1.series[0].data = performMonitorListByTime
+            option1.xAxis[0].data = pvTimeList
+            option1.series[0].data = PVDataListByTime
             myChart.setOption(option1)
             myChart1.setOption(options)
         }
