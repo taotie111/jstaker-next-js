@@ -19,3 +19,11 @@ export function getPerformMonitorList(data){
         data: data
     })
 }
+
+export function getUVDataListCenter(data){
+    return request("/weblog/uv/getUVDataListCenter",{
+        method: 'GET',
+        data: data
+    })
+}
+ 
