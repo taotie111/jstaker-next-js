@@ -57,7 +57,8 @@ export const GET = async (
         })
     }
     await prisma.$connect();
-    data = typeFunction(params);
+    data = await typeFunction(params);
+    console.log(data,'data')
     await prisma.$disconnect();
     return NextResponse.json({
         success: true,
@@ -81,18 +82,17 @@ export const POST = async (
 }
 
 const getMinutePVDataList = async (params: any) => {
-    console.log(params, 'params');
     const data = await prisma.pv_minutes.findMany({
-        // where: {
-            // token: params.token,
-            // clickName: params.clickName,
-            // time: {
-            //     gte: new Date(params.startDate), // 大于等于开始时间
-            //     lte: new Date(params.endDate), // 小于等于结束时间
-            // }
-        // },
+        where: {
+            token: params.token,
+            clickName: params.clickName,
+            time: {
+                gte: new Date(params.startDate), // 大于等于开始时间
+                lte: new Date(params.endDate), // 小于等于结束时间
+            }
+        },
     });
-    console.log(data);
+    // console.log(data);
     return data;
 }
 const getHourPVDataList = async (params: any) => {

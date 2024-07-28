@@ -67,7 +67,6 @@ export const POST = async (
         console.log(old_user, 'old_user')
 
         if (old_user.length == 0) {
-            console.log("wu")
             errorMessage = "无该 ID 用户"
         } else {
             const user: user_data = {
