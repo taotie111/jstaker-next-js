@@ -22,9 +22,9 @@ export default async function MonitoringScreen(params) {
         return res.data;
     }
     const fetchWebErrorList = async (webdetail) => {
-        console.log(webdetail.name, 'webdetail.name')
+        console.log(webdetail?.name, 'webdetail.name')
         const res = await getWebErrorList({
-            token: webdetail.token
+            token: webdetail?.token
         })
         return res.data.data
     }

@@ -1,89 +1,83 @@
-'use client'
-import React from 'react';
-import { Space, Table, Tag } from 'antd';
-import type { TableProps } from 'antd';
+"use client";
+import React, { useEffect, useState } from "react";
+import { Space, Table, message } from "antd";
+import { getWebList, deleteWebList } from "@/app/apiRequest/web";
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string[];
+function NextTable() {
+  const [siteListData, setSiteListData] = useState([]);
+  const [messageApi, contextHolder] = message.useMessage();
+  const columns = [
+    {
+      title: "站点名称",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "创建时间",
+      dataIndex: "createdAt",
+      key: "createdAt",
+    },
+    {
+      title: "地址",
+      dataIndex: "address",
+      key: "address",
+    },
+    {
+      title: "roleLevel",
+      dataIndex: "roleLevel",
+      key: "roleLevel",
+    },
+
+    {
+      title: "备注",
+      dataIndex: "remark",
+      key: "remark",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record: Object) => {
+        return (
+          <>
+            <Space size="middle">
+              <a onClick={() => handleDelete(record)}>Delete</a>
+            </Space>
+          </>
+        );
+      },
+    },
+  ];
+  //删除数据
+  let handleDelete = async (record: any) => {
+    console.log("删除", record);
+    let res = await deleteWebList({ id: record.id });
+    if (res.success) {
+      messageApi
+        .open({
+          type: "success",
+          content: "删除站点成功",
+        })
+        .then(() => {
+          getList();
+        });
+    }
+  };
+  //获取列表数据
+  let getList = async () => {
+    let res = await getWebList();
+    setSiteListData(res.data);
+  };
+  useEffect(() => {
+    getList();
+  }, []);
+  console.log("列表数据", siteListData);
+
+  return (
+    <>
+      {contextHolder}
+      <Table columns={columns} dataSource={siteListData} />
+    </>
+  );
 }
 
-const columns: TableProps<DataType>['columns'] = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (_, { tags }) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
-
-const App: React.FC = () => <Table columns={columns} dataSource={data} />;
-
-export default App;
+export default NextTable;

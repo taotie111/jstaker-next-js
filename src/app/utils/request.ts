@@ -28,7 +28,20 @@ export function request(url: string, options?: any) {
         })
             .then(checkStatus)
             .then(parseJSON);
-    } else {
+    } 
+    if(method === "DELETE"){
+        return fetch(commonUrl + url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                ...headers,
+            },
+            body: JSON.stringify(data),
+        })
+            .then(checkStatus)
+            .then(parseJSON);
+    }
+    else {
         let queryUrl = ""
         const searchParams = new URLSearchParams();
         if (data){
