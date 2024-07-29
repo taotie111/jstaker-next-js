@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { Space, Table, message } from "antd";
 import { getWebList, deleteWebList } from "@/app/apiRequest/web";
+import { useRouter } from "next/navigation";
 
 function NextTable() {
+  const router = useRouter();
   const [siteListData, setSiteListData] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
   const columns = [
@@ -41,6 +43,7 @@ function NextTable() {
           <>
             <Space size="middle">
               <a onClick={() => handleDelete(record)}>Delete</a>
+              <a onClick={() => handleUpdate(record)}>Update</a>
             </Space>
           </>
         );
@@ -61,6 +64,12 @@ function NextTable() {
           getList();
         });
     }
+  };
+  //更新数据
+  let handleUpdate = async (record: any) => {
+    console.log("更新", record);
+    router.push('/jstakerDashBoard/siteManage/create')
+
   };
   //获取列表数据
   let getList = async () => {
