@@ -195,3 +195,12 @@ model pv_days {
   token     String   @db.VarChar(255)
   ChinaTime String   @db.VarChar(255)
 }
+
+model PV_SCRIPT_LIST {
+  id                  Int      @id @default(autoincrement())
+  token               String   @db.VarChar(255)           
+  clickName           String   @db.VarChar(255)  
+  state               String   @db.VarChar(255) 
+  message             String   @db.VarChar(255) 
+  level               Int      
+}

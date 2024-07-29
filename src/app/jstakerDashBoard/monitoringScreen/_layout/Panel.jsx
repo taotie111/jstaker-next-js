@@ -98,7 +98,7 @@ export default function Panel(params) {
         let line1 = [];
         data.map((item) => {
             line1.push(item.data);
-            timeList.push(item.time);
+            timeList.push(item.ChinaTime);
         })
         PVDataListByTime = line1;
         pvTimeList = timeList

@@ -8,16 +8,18 @@ import { useEffect, useState } from 'react';
 
 export default function TableList(params) {
     const { Column } = Table;
-    const [errorList, setErrorList] = useState(params.errorList);
-    const [screenHeight, setScreenHeight] = useState(0);
+    console.log(params.errorList,'errorList')
+    const [errorList, setErrorList] = useState(params.errorList || []);
+    const [screenHeight, setScreenHeight] = useState(1000);
 
     useEffect(() => {
         const handleResize = () => {
             setScreenHeight(window.innerHeight);
-            console.log(window.innerHeight)
+            console.log(window.innerHeight,'innerHeight')
         };
         handleResize()
         window.addEventListener('resize', handleResize);
+        setErrorList(params.errorList);
         return () => {
             
         };
@@ -52,19 +54,3 @@ export default function TableList(params) {
         </div>
     )
 }
-
-// {
-//     "id": 2,
-//     "type": 0,
-//     "errorFunction": null,
-//     "errorPageUrl": null,
-//     "errorFunctionParams": null,
-//     "projectName": null,
-//     "uid": null,
-//     "token": null,
-//     "message": null,
-//     "ip": null,
-//     “status
-//     "createdAt": "2024-05-28T22:04:37.796Z",
-//     "updatedAt": null
-// },
