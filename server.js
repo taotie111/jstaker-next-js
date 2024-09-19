@@ -82,9 +82,6 @@ const job = schedule.scheduleJob('30 59 23 * * *', async () => { // 每天晚上
     })
 
     // 将所有分钟的数据与实际统计的数据进行合并
-    // console.log(insertDataMinute,"insertDataMinute");
-    console.log(insertDataHour,"insertDataHour");
-    console.log(insertDataDay,"insertDataDay");
     //将合并后的数据存储到pv_minutes表中
 
     await prisma.pv_minutes.createMany({
@@ -98,7 +95,6 @@ const job = schedule.scheduleJob('30 59 23 * * *', async () => { // 每天晚上
     });
 
     // 打印结果
-    console.log('Data inserted successfully', new Date());
 
     await prisma.$disconnect();
 });
