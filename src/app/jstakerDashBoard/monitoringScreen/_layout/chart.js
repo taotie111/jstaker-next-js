@@ -208,7 +208,7 @@ export const line2 = {
       // 向下取整作为起始Y点
       return Math.floor(value.min)
     },
-    name: '性能',
+    name: '点击数',
     nameTextStyle: {
       // color: "#fff",
       fontSize: '14px'

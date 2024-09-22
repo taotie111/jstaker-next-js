@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 import * as echarts from 'echarts';
 import { useEffect, useState } from 'react';
 import { line1, line2, default_charts } from './chart.js'
-
+import { processData } from '@/app/backend/Core/dataHandle.ts'
 
 export default function Panel(params) {
     const [errorList, setErrorList] = useState(params.errorList);
@@ -111,7 +111,7 @@ export default function Panel(params) {
         var myChart = echarts.init(document.getElementById('echart'));
         var myChart1 = echarts.init(document.getElementById('echart1'));
         // 绘制图表
-
+        console.log(processData(errorList))
         if (line1) {
             let options = line1
             options.xAxis[0].data = timeList

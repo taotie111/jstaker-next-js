@@ -48,11 +48,6 @@ export const GET = async (
           'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         },
       })
-    return NextResponse.json({
-        success: true,
-        errorMessage: '',
-        data: uv
-    })
 }
 export interface uv_data {
     clickName: string;

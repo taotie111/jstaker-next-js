@@ -3,10 +3,7 @@ import TitleLine from "../_layout/TitleLine"
 import TableList from "../_layout/TableList"
 import TabList from "../_layout/TabList"
 import Panel from "../_layout/Panel"
-import {context} from "../../context"
 import { getWebList, getWebErrorList,getPerformMonitorList, getUVDataListCenter } from '@/app/apiRequest/web';
-// import { useAtomValue, } from 'jotai'
-// import {checkWebListAtom} from "@/app/store/webListData/state.js"
 export default async function MonitoringScreen(params) {
     const id = params.params.id;
 
@@ -24,7 +21,6 @@ export default async function MonitoringScreen(params) {
 
     // 查询错误列表详细信息
     const fetchWebErrorList = async (webdetail) => {
-        console.log(webdetail.name, 'webdetail.name')
         const res = await getWebErrorList({
             token: webdetail.token
         })
@@ -64,7 +60,6 @@ export default async function MonitoringScreen(params) {
     let errorList = await fetchWebErrorList(webdetail);
     let pvList = await fetchUVDataListCenter(webdetail);
 
-    console.log(context, 'context')
     let performMonitorList = await fetchPerformMonitorList()
     return (
         <div className={styles.monitoringScreen} >
