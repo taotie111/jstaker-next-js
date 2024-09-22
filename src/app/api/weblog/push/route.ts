@@ -1,7 +1,6 @@
-import { NextResponse,NextRequest } from "next/server";
-import {PrismaClient} from "@prisma/client"
-
-const prisma = new PrismaClient();
+import { NextResponse, NextRequest } from "next/server";
+import { PrismaClient } from "@prisma/client"
+import prisma from "@/app/backend/services/usePrisma.ts"
 
 export const OPTIONS = (req: NextRequest, res: NextResponse) => {
     // res.status(200).send(); // 响应 OPTIONS 请求
@@ -19,12 +18,13 @@ export const OPTIONS = (req: NextRequest, res: NextResponse) => {
 };
 export const GET = (
     req: NextRequest,
-    {params} : any
+    { params }: any
 ) => {
+
     return NextResponse.json({
         success: true,
-        errorMessage:'该接口使用post请求',
-        data:{}
+        errorMessage: '该接口使用post请求',
+        data: {}
     })
 }
 export interface error_information_data {
@@ -39,9 +39,9 @@ export interface error_information_data {
     [property: string]: any;
 }
 
-export  const  POST = async (
+export const POST = async (
     req: NextRequest,
-    {params} : any
+    { params }: any
 ) => {
     let ip = req.headers.get('X-Forwarded-For')
     const json = await req.json();
@@ -50,17 +50,26 @@ export  const  POST = async (
     const data: error_information_data = {
         ...json,
         errorFunctionParams: JSON.stringify(json.errorFunctionParams),
-        ip:ip
-      };
+        ip: ip
+    };
+
     const createMany = await prisma.error_information.createMany({
-        data:[
+        data: [
             data
         ]
     })
     return NextResponse.json({
         success: true,
         errorMessage: '创建数据成功',
-        data: {createMany}
-    })
+        data: { createMany }
+    }, {
+        status: 200,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
+    }
+    )
 }
 
